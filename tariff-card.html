@@ -20,7 +20,7 @@
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Основной блок карточки — плавное изменение высоты */
+        /* Основной блок карточки — добавлен overflow: hidden для скругления углов */
         .tariff-card {
             width: 358px;
             background: #ffffff;
@@ -28,18 +28,14 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 312px;
+            overflow: hidden;  /* теперь нижние углы тоже скруглены */
         }
 
-        /* Контентная область — без внутренней прокрутки */
+        /* Контентная область */
         .card-content {
-            flex: 1;
             padding: 24px 20px 0 20px;
         }
 
-        /* Заголовок и текст */
         .tariff-title {
             font-size: 17px;
             font-weight: 700;
@@ -77,11 +73,10 @@
             margin-bottom: 20px;
         }
 
-        /* Аккордеон */
         .accordion {
             margin-top: 4px;
             border-top: 1px solid #edeff2;
-            margin-bottom: 0;          /* убрали стандартный отступ, теперь расстояние управляется через последний пункт */
+            margin-bottom: 0;
         }
 
         .accordion-header {
@@ -109,10 +104,9 @@
             font-size: 20px;
             font-weight: 500;
             color: #6c727a;
-            transition: transform 0.2s ease;
         }
 
-        /* Плавное открытие/закрытие содержимого */
+        /* Плавное открытие/закрытие через max-height */
         .accordion-content {
             overflow: hidden;
             transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding 0.2s ease;
@@ -123,18 +117,16 @@
         }
 
         .accordion:not(.collapsed) .accordion-content {
-            max-height: 600px;
+            max-height: 600px;   /* достаточно для всего содержимого */
             opacity: 1;
-            padding-bottom: 0;          /* убираем внутренний отступ снизу, чтобы margin последнего элемента дал ровно 24px до кнопки */
+            padding-bottom: 0;
         }
 
-        /* Пункты тарифа — без разделителей, с уменьшенными отступами */
         .condition-item {
             padding: 8px 0;
             border-bottom: none;
         }
 
-        /* Последний пункт — даёт нужный отступ 24px снизу до кнопки */
         .condition-item:last-child {
             margin-bottom: 24px;
         }
@@ -179,7 +171,6 @@
             color: #b0b3b9;
         }
 
-        /* Кнопка подключения */
         .button-wrapper {
             padding: 0 20px 20px 20px;
             background: #ffffff;
@@ -212,7 +203,7 @@
     </style>
 </head>
 <body>
-<div class="tariff-card" id="tariffCard">
+<div class="tariff-card">
     <div class="card-content">
         <div class="tariff-title">Простой</div>
         <div class="tariff-subtitle">Для начинающих предпринимателей</div>
@@ -222,7 +213,6 @@
             <div class="price-note">Или 0 ₽, если не пользовались счётом в прошлом месяце</div>
         </div>
 
-        <!-- Аккордеон: по умолчанию свёрнут -->
         <div class="accordion collapsed" id="tariffAccordion">
             <div class="accordion-header" id="accordionHeader">
                 <span class="accordion-btn-text" id="accordionBtnText">Показать тариф</span>
@@ -260,38 +250,26 @@
 
 <script>
     (function() {
-        const tariffCard = document.getElementById('tariffCard');
         const accordion = document.getElementById('tariffAccordion');
         const header = document.getElementById('accordionHeader');
         const btnText = document.getElementById('accordionBtnText');
         const iconSpan = document.getElementById('accordionIcon');
 
-        if (!tariffCard || !accordion || !header || !btnText || !iconSpan) return;
+        if (!accordion || !header || !btnText || !iconSpan) return;
 
-        const COLLAPSED_HEIGHT = 312;
-        const EXPANDED_HEIGHT = 604;
-
-        function updateAccordionUI() {
+        function updateUI() {
             const isCollapsed = accordion.classList.contains('collapsed');
             btnText.textContent = isCollapsed ? 'Показать тариф' : 'Свернуть';
             iconSpan.textContent = isCollapsed ? '+' : '−';
         }
 
-        function updateCardHeight() {
-            const isCollapsed = accordion.classList.contains('collapsed');
-            tariffCard.style.height = isCollapsed ? COLLAPSED_HEIGHT + 'px' : EXPANDED_HEIGHT + 'px';
-        }
-
-        function toggleAccordion(event) {
-            event.stopPropagation();
+        header.addEventListener('click', (e) => {
+            e.stopPropagation();
             accordion.classList.toggle('collapsed');
-            updateAccordionUI();
-            updateCardHeight();
-        }
+            updateUI();
+        });
 
-        header.addEventListener('click', toggleAccordion);
-        tariffCard.style.height = COLLAPSED_HEIGHT + 'px';
-        updateAccordionUI();
+        updateUI();
     })();
 </script>
 </body>
