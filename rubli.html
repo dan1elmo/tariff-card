@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сравнение знака рубля на iPhone</title>
+
+    <!-- 
+      ВАЖНО: замените URL ниже на прямую ссылку на ваш файл Gotham Pro (woff2) 
+      с вашего боевого сайта. 
+    -->
+    <style>
+        @font-face {
+            font-family: 'Gotham Pro';
+            src: url('https://ваш-сайт.ru/fonts/GothamPro.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Inter — подмножество только с ₽ */
+        @font-face {
+            font-family: 'InterRub';
+            src: url('https://fonts.googleapis.com/css2?family=Inter&text=₽') format('woff2');
+            unicode-range: U+20BD;
+        }
+
+        /* Roboto — подмножество только с ₽ */
+        @font-face {
+            font-family: 'RobotoRub';
+            src: url('https://fonts.googleapis.com/css2?family=Roboto&text=₽') format('woff2');
+            unicode-range: U+20BD;
+        }
+
+        body {
+            padding: 30px;
+            font-family: sans-serif;
+            background: #fff;
+        }
+
+        .price-sample {
+            font-size: 60px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+
+        .label {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="label">1. Gotham Pro (цифры) + Inter (знак рубля)</div>
+    <div class="price-sample" style="font-family: 'Gotham Pro', 'InterRub', sans-serif;">
+        1 234 567 ₽
+    </div>
+
+    <div class="label">2. Gotham Pro (цифры) + Roboto (знак рубля)</div>
+    <div class="price-sample" style="font-family: 'Gotham Pro', 'RobotoRub', sans-serif;">
+        1 234 567 ₽
+    </div>
+
+    <div class="label">3. Только Gotham Pro (как сейчас, если в нём нет ₽ — знак будет системным)</div>
+    <div class="price-sample" style="font-family: 'Gotham Pro', sans-serif;">
+        1 234 567 ₽
+    </div>
+
+</body>
+</html>
