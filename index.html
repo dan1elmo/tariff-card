@@ -157,9 +157,7 @@
 // ФУНКЦИЯ ОЧИСТКИ ТЕКСТА ОТ КОНЕЧНЫХ ЗНАКОВ ПРЕПИНАНИЯ
 // ==================================================================
 function cleanOption(text) {
-    // Удаляем буквенный префикс (a), b), c) и т.д.)
     let cleaned = text.replace(/^[a-z]\)\s*/, '');
-    // Удаляем конечные точки, точки с запятой, запятые, двоеточия и пробелы
     cleaned = cleaned.replace(/[.;:,]\s*$/, '').trim();
     return cleaned;
 }
@@ -1381,7 +1379,7 @@ const questionsWithRu = [
 ];
 
 // ==================================================================
-// ЛОГИКА ПРИЛОЖЕНИЯ (с очисткой текста опций)
+// ЛОГИКА ПРИЛОЖЕНИЯ
 // ==================================================================
 const app = {
     mode: 'tickets',
@@ -1396,7 +1394,6 @@ const app = {
     isResuming: false,
     ticketStats: {},
 
-    // Очистка опции: удаляем префикс и конечные знаки препинания
     cleanOption(text) {
         let cleaned = text.replace(/^[a-z]\)\s*/, '');
         cleaned = cleaned.replace(/[.;:,]\s*$/, '').trim();
@@ -1405,6 +1402,7 @@ const app = {
 
     init() {
         this.loadTicketStats();
+        this.loadCompletedTickets();
         this.buildTickets();
         this.renderTicketButtons();
         this.bindEvents();
@@ -1432,6 +1430,20 @@ const app = {
     saveTicketStats() {
         try {
             localStorage.setItem('ticketStats', JSON.stringify(this.ticketStats));
+        } catch (e) {}
+    },
+
+    loadCompletedTickets() {
+        try {
+            const saved = localStorage.getItem('completedTickets');
+            if (saved) this.completedTickets = new Set(JSON.parse(saved));
+            else this.completedTickets = new Set();
+        } catch (e) { this.completedTickets = new Set(); }
+    },
+
+    saveCompletedTickets() {
+        try {
+            localStorage.setItem('completedTickets', JSON.stringify([...this.completedTickets]));
         } catch (e) {}
     },
 
@@ -1640,7 +1652,6 @@ const app = {
         opts.forEach((opt, i) => {
             const div = document.createElement('div');
             div.className = 'option';
-            // Очищаем текст опции
             const cleanOpt = this.cleanOption(opt);
             const cleanOptRu = this.cleanOption(optsRu[i] || '');
 
@@ -1758,6 +1769,9 @@ const app = {
                 correct: correctFirst
             };
             this.saveTicketStats();
+            // Отмечаем билет как пройденный (для возможности повторного прохождения)
+            this.completedTickets.add(ticketId);
+            this.saveCompletedTickets();
             this.renderTicketButtons();
         }
         this.showResults();
@@ -1881,6 +1895,19 @@ const app = {
         return arr;
     },
 
+    // ====== ОБНОВЛЁННАЯ ОЧИСТКА ВСЕХ ДАННЫХ ======
+    clearProgress() {
+        try {
+            localStorage.removeItem('testProgress');
+            localStorage.removeItem('ticketStats');
+            localStorage.removeItem('completedTickets');
+            this.ticketStats = {};
+            this.completedTickets = new Set();
+            this.renderTicketButtons();
+            this.updateProgressStatus('cleared');
+        } catch (e) {}
+    },
+
     saveProgress() {
         if (this.currentQuestions.length === 0 || this.isResuming) return;
         const data = {
@@ -1903,13 +1930,6 @@ const app = {
             const raw = localStorage.getItem('testProgress');
             return raw ? JSON.parse(raw) : null;
         } catch (e) { return null; }
-    },
-
-    clearProgress() {
-        try {
-            localStorage.removeItem('testProgress');
-            this.updateProgressStatus('cleared');
-        } catch (e) {}
     },
 
     checkSavedProgress() {
@@ -1976,10 +1996,11 @@ const app = {
         document.getElementById('clearProgressBtn').addEventListener('click', () => {
             if (confirm('Sigur doriți să ștergeți progresul salvat?')) {
                 this.clearProgress();
-                this.updateProgressStatus('cleared');
                 if (document.getElementById('testArea').classList.contains('active')) {
                     this.goHome();
                 }
+                this.renderTicketButtons();
+                this.updateProgressStatus('cleared');
             }
         });
 
