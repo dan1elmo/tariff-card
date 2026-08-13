@@ -21,8 +21,10 @@
         .ticket-selector { margin-bottom: 25px; }
         .ticket-selector label { font-weight: 600; display: block; margin-bottom: 10px; color: #1e3b5c; }
         .ticket-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-        .ticket-buttons button { padding: 12px 20px; border: 2px solid #2a7faa; background: white; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s; color: #2a7faa; flex: 1 0 auto; }
+        .ticket-buttons button { padding: 12px 20px; border: 2px solid #2a7faa; background: white; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s; color: #2a7faa; flex: 0 0 calc(50% - 10px); min-width: 140px; position: relative; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .ticket-buttons button:hover { background: #e6f0f7; }
+        .ticket-buttons button.completed-green { background: #a5d6a7; border-color: #2e7d32; color: #1e3b5c; }
+        .ticket-buttons button.completed-yellow { background: #fff9c4; border-color: #f9a825; color: #1e3b5c; }
         .clear-progress-btn { padding: 10px 20px; border: 2px solid #dc3545; background: white; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; color: #dc3545; margin-top: 10px; }
         .clear-progress-btn:hover { background: #dc3545; color: white; }
         .progress-status { font-size: 14px; color: #28a745; margin-top: 10px; }
@@ -30,11 +32,6 @@
         .resume-btn:hover { background: #1e7e34; }
         .test-area { display: none; }
         .test-area.active { display: block; }
-        .top-actions { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; justify-content: flex-start; }
-        .top-actions button { padding: 8px 18px; border: none; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; background: #e2e8f0; color: #1e3b5c; display: flex; align-items: center; gap: 6px; }
-        .top-actions button:hover { background: #cbd5e1; }
-        .top-actions button.primary-action { background: #2a7faa; color: white; }
-        .top-actions button.primary-action:hover { background: #1f648a; }
         .nav-panel { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; padding: 10px 8px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; max-height: 140px; overflow-y: auto; justify-content: center; }
         .nav-panel .qnum { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #cbd5e1; background: white; color: #1e3b5c; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.15s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .nav-panel .qnum:hover { border-color: #2a7faa; }
@@ -52,12 +49,12 @@
         .option .opt-content .ru { display: block; font-weight: 400; font-size: 15px; color: #4a6a7a; margin-top: 4px; border-left: 2px solid #b22234; padding-left: 10px; }
         .hint { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px 16px; margin-top: 10px; font-size: 15px; color: #856404; }
         .hint .ru { display: block; font-weight: 400; font-size: 14px; color: #856404; margin-top: 4px; border-left: 2px solid #b22234; padding-left: 10px; }
-        .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-        .back-btn, .finish-btn { padding: 12px 28px; border: none; border-radius: 30px; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.2s; }
-        .back-btn { background: #e2e8f0; color: #1e3b5c; }
-        .back-btn:hover { background: #cbd5e1; }
-        .finish-btn { background: #b22234; color: white; }
-        .finish-btn:hover { background: #8b1a1f; }
+        .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; justify-content: space-between; }
+        .nav-btn { padding: 12px 28px; border: none; border-radius: 30px; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.2s; background: #e2e8f0; color: #1e3b5c; }
+        .nav-btn:hover:not(:disabled) { background: #cbd5e1; }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .nav-btn.primary { background: #2a7faa; color: white; }
+        .nav-btn.primary:hover:not(:disabled) { background: #1f648a; }
         .result-area { display: none; }
         .result-area.active { display: block; }
         .result-summary { background: #eaf4e8; padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: center; }
@@ -87,21 +84,21 @@
             h1 { font-size: 19px; }
             h1 small { font-size: 13px; }
             .mode-selector button { padding: 8px 14px; font-size: 14px; }
-            .ticket-buttons button { padding: 10px 14px; font-size: 14px; }
+            .ticket-buttons button { flex: 0 0 calc(50% - 10px); min-width: 100px; padding: 10px 14px; font-size: 14px; }
             .nav-panel .qnum { width: 34px; height: 34px; font-size: 13px; }
             .question-text { font-size: 16px; }
             .option { padding: 12px 14px; font-size: 15px; }
-            .back-btn, .finish-btn { padding: 10px 20px; font-size: 15px; }
+            .nav-btn { padding: 10px 20px; font-size: 15px; }
             .result-summary .score { font-size: 28px; }
-            .top-actions button { padding: 6px 14px; font-size: 13px; }
             .lang-toggle { width: 38px; height: 38px; font-size: 22px; }
         }
         @media (max-width: 400px) {
             .container { padding: 12px 8px; }
+            .ticket-buttons button { flex: 0 0 100%; min-width: unset; }
             .nav-panel .qnum { width: 30px; height: 30px; font-size: 12px; }
             .question-text { font-size: 15px; }
             .option { padding: 10px 12px; font-size: 14px; }
-            .top-actions button { padding: 5px 12px; font-size: 12px; }
+            .nav-btn { padding: 8px 16px; font-size: 14px; }
             .lang-toggle { width: 34px; height: 34px; font-size: 20px; }
         }
     </style>
@@ -117,6 +114,7 @@
         <div class="mode-selector">
             <button id="modeTickets" class="active">📂 Bilete</button>
             <button id="modeMarathon">🏃 Marafon</button>
+            <button id="modeRandom">🎲 Aleatoriu</button>
         </div>
         <div class="lang-toggle" id="langToggle" title="Переключить русский перевод">🇷🇺</div>
     </div>
@@ -130,26 +128,17 @@
     </div>
 
     <div id="testArea" class="test-area">
-        <div class="top-actions">
-            <button class="primary-action" id="retryTop">🔄 Reia același test</button>
-            <button id="homeTop">🏠 Acasă</button>
-        </div>
-
         <div class="nav-panel" id="navPanel"></div>
         <div class="question-text" id="questionText"></div>
         <div class="options" id="optionsContainer"></div>
         <div id="hintContainer"></div>
         <div class="action-buttons">
-            <button class="back-btn" id="backToStart">← Înapoi</button>
-            <button class="finish-btn" id="finishTestBtn">Finalizează testul</button>
+            <button class="nav-btn" id="prevQuestionBtn" disabled>← Înapoi</button>
+            <button class="nav-btn primary" id="nextQuestionBtn">Înainte →</button>
         </div>
     </div>
 
     <div id="resultArea" class="result-area">
-        <div class="top-actions" style="margin-bottom:16px;">
-            <button class="primary-action" id="retryResultTop">🔄 Reia același test</button>
-            <button id="homeResultTop">🏠 Acasă</button>
-        </div>
         <div id="resultSummary" class="result-summary"></div>
         <div id="resultList"></div>
         <div class="result-actions">
@@ -165,7 +154,18 @@
 
 <script>
 // ==================================================================
-// ПОЛНЫЙ МАССИВ ИЗ 110 ВОПРОСОВ (часть 1 – вопросы 1–55)
+// ФУНКЦИЯ ОЧИСТКИ ТЕКСТА ОТ КОНЕЧНЫХ ЗНАКОВ ПРЕПИНАНИЯ
+// ==================================================================
+function cleanOption(text) {
+    // Удаляем буквенный префикс (a), b), c) и т.д.)
+    let cleaned = text.replace(/^[a-z]\)\s*/, '');
+    // Удаляем конечные точки, точки с запятой, запятые, двоеточия и пробелы
+    cleaned = cleaned.replace(/[.;:,]\s*$/, '').trim();
+    return cleaned;
+}
+
+// ==================================================================
+// ПОЛНЫЙ МАССИВ ИЗ 110 ВОПРОСОВ (с переводами и подсказками)
 // ==================================================================
 const questionsWithRu = [
     // Вопрос 1
@@ -772,623 +772,616 @@ const questionsWithRu = [
         options_ru: ["a) Верховным судом, апелляционными судами и судами первой инстанции;", "b) Верховным судом, апелляционными судами, трибуналами и судами первой инстанции;", "c) Верховным судом, апелляционными судами, Антикоррупционным судом и судами первой инстанции."],
         hint: "Art. 115 alin. (1) din Constituție: justiția se înfăptuiește prin Curtea Supremă de Justiție, curțile de apel și judecătorii.",
         hint_ru: "Ст. 115 ч. (1) Конституции: правосудие осуществляется Верховным судом, апелляционными судами и судами первой инстанции."
+    },
+    // Вопрос 56
+    {
+        id: 56,
+        text: "Parlamentul Republicii Moldova este în drept să adopte o lege cu privire la modificarea Constituţiei:",
+        options: ["a) după cel mult 6 luni de la data prezentării iniţiativei corespunzătoare;", "b) după cel puţin 12 luni de la data prezentării iniţiativei corespunzătoare;", "c) după cel puţin 6 luni de la data prezentării inițiativei corespunzătoare."],
+        correct: 2,
+        text_ru: "Парламент Республики Молдова вправе принять закон о внесении изменений в Конституцию:",
+        options_ru: ["a) не позднее чем через 6 месяцев с даты представления соответствующей инициативы;", "b) не ранее чем через 12 месяцев с даты представления соответствующей инициативы;", "c) не ранее чем через 6 месяцев с даты представления соответствующей инициативы."],
+        hint: "Art. 141 alin. (2) din Constituție: legea de modificare a Constituției se adoptă după cel puțin 6 luni de la prezentarea inițiativei.",
+        hint_ru: "Ст. 141 ч. (2) Конституции: закон об изменении Конституции принимается не ранее чем через 6 месяцев после представления инициативы."
+    },
+    // Вопрос 57
+    {
+        id: 57,
+        text: "În Republica Moldova reținerea nu poate depăși:",
+        options: ["a) 48 ore;", "b) 24 ore;", "c) 72 ore;", "d) 3 ore."],
+        correct: 2,
+        text_ru: "В Республике Молдова задержание не может превышать:",
+        options_ru: ["a) 48 часов;", "b) 24 часов;", "c) 72 часов;", "d) 3 часов."],
+        hint: "Art. 25 alin. (3) din Constituție: reținerea nu poate depăși 72 de ore.",
+        hint_ru: "Ст. 25 ч. (3) Конституции: задержание не может превышать 72 часов."
+    },
+    // Вопрос 58
+    {
+        id: 58,
+        text: "Potrivit Constituției Republicii Moldova, dispozițiile privind drepturile și libertăţile omului se interpretează și se aplică:",
+        options: ["a) în concordanță cu Constituția Uniunii Europene, prevederile tratatelor internaţionale la care Republica Moldova este parte;", "b) în concordanţă cu Pactul cu privire la Drepturile Civile și Politice, Pactul cu privire la Drepturile Sociale, Econimice și Culturale și celelalte tratate la care Republica Moldova este parte;", "c) în concordanţă cu Declaraţia Universală a Drepturilor Omului, cu pactele și cu celelalte tratate la care Republica Moldova este parte."],
+        correct: 2,
+        text_ru: "Согласно Конституции Республики Молдова, положения о правах и свободах человека толкуются и применяются:",
+        options_ru: ["a) в соответствии с Конституцией Европейского Союза, положениями международных договоров, участницей которых является Республика Молдова;", "b) в соответствии с Пактом о гражданских и политических правах, Пактом об экономических, социальных и культурных правах и другими договорами, участницей которых является Республика Молдова;", "c) в соответствии с Всеобщей декларацией прав человека, пактами и другими договорами, участницей которых является Республика Молдова."],
+        hint: "Art. 4 alin. (2) din Constituție: drepturile omului se interpretează în concordanță cu Declarația Universală a Drepturilor Omului și cu pactele la care Republica Moldova este parte.",
+        hint_ru: "Ст. 4 ч. (2) Конституции: права человека толкуются в соответствии с Всеобщей декларацией прав человека и пактами, участницей которых является Республика Молдова."
+    },
+    // Вопрос 59
+    {
+        id: 59,
+        text: "Potrivit Constituției Republicii Moldova, legile constituționale sunt:",
+        options: ["a) cele de revizuire a Constituției;", "b) cele prin care se stabilește starea de asediu sau de război;", "c) cele prin care se ratifică tratatele internaționale la care Republica Moldova este parte;", "d) cele prin care este reglementată organizarea și funcţionarea Curţii Constituționale, a Consiliului Superior al Magistraturii, a instanţelor judecătorești, a contenciosului administrativ."],
+        correct: 0,
+        text_ru: "Согласно Конституции Республики Молдова, конституционными законами являются:",
+        options_ru: ["a) законы о пересмотре Конституции;", "b) законы, устанавливающие осадное или военное положение;", "c) законы о ратификации международных договоров, участницей которых является Республика Молдова;", "d) законы, регулирующие организацию и деятельность Конституционного суда, Высшего совета магистратуры, судебных инстанций, административного судопроизводства."],
+        hint: "Art. 74 alin. (1) din Constituție: legile constituționale sunt cele de revizuire a Constituției.",
+        hint_ru: "Ст. 74 ч. (1) Конституции: конституционные законы – это законы о пересмотре Конституции."
+    },
+    // Вопрос 60
+    {
+        id: 60,
+        text: "Calitatea de Președinte al Republicii Moldova este incompatibilă cu exercitarea:",
+        options: ["a) activităţii didactice sau știinţifice;", "b) oricărei alte funcţii retribuite;", "c) activităţii în calitate de membru al unor organizații interguvernamentale."],
+        correct: 1,
+        text_ru: "Статус Президента Республики Молдова несовместим с занятием:",
+        options_ru: ["a) преподавательской или научной деятельностью;", "b) любой другой оплачиваемой должности;", "c) деятельностью в качестве члена межправительственных организаций."],
+        hint: "Art. 80 alin. (3) din Constituție: Președintele nu poate exercita nicio altă funcție retribuită.",
+        hint_ru: "Ст. 80 ч. (3) Конституции: Президент не может занимать любую другую оплачиваемую должность."
+    },
+    // Вопрос 61
+    {
+        id: 61,
+        text: "Potrivit Constituției, pedeapsa cu moartea în Republica Moldova:",
+        options: ["a) este abolită;", "b) poate fi aplicată doar pentru infracţiuni de înaltă trădare;", "c) poate fi aplicată doar pentru infracțiuni de război;", "d) poate fi aplicată doar la decizia Curții Supreme de Justiție."],
+        correct: 0,
+        text_ru: "Согласно Конституции, смертная казнь в Республике Молдова:",
+        options_ru: ["a) отменена;", "b) может применяться только за государственную измену;", "c) может применяться только за военные преступления;", "d) может применяться только по решению Верховного суда."],
+        hint: "Art. 24 alin. (3) din Constituție: pedeapsa cu moartea este abolită.",
+        hint_ru: "Ст. 24 ч. (3) Конституции: смертная казнь отменена."
+    },
+    // Вопрос 62
+    {
+        id: 62,
+        text: "În cursul unui an, Parlamentul Republicii Moldova poate fi dizolvat:",
+        options: ["a) de câte ori decid deputații;", "b) de 3 ori;", "c) o singură dată;", "d) de 2 ori."],
+        correct: 2,
+        text_ru: "В течение одного года Парламент Республики Молдова может быть распущен:",
+        options_ru: ["a) столько раз, сколько решат депутаты;", "b) 3 раза;", "c) только один раз;", "d) 2 раза."],
+        hint: "Art. 85 alin. (3) din Constituție: Parlamentul poate fi dizolvat o singură dată într-un an.",
+        hint_ru: "Ст. 85 ч. (3) Конституции: Парламент может быть распущен только один раз в год."
+    },
+    // Вопрос 63
+    {
+        id: 63,
+        text: "Legile adoptate de Parlamentul Republici Moldova sunt promulgate de către:",
+        options: ["a) Președintele Parlamentului;", "b) Preşedintele Republicii Moldova;", "c) Guvernul Republicii Moldova;", "d) Prim-ministru."],
+        correct: 1,
+        text_ru: "Законы, принятые Парламентом Республики Молдова, промульгируются:",
+        options_ru: ["a) Председателем Парламента;", "b) Президентом Республики Молдова;", "c) Правительством Республики Молдова;", "d) Премьер-министром."],
+        hint: "Art. 93 din Constituție: legile sunt promulgate de Președintele Republicii Moldova.",
+        hint_ru: "Ст. 93 Конституции: законы промульгируются Президентом Республики Молдова."
+    },
+    // Вопрос 64
+    {
+        id: 64,
+        text: "Parlamentul poate hotărî punerea sub acuzare a Președintelui Republicii Moldova:",
+        options: ["a) în cazul în care refuză promulgarea unei legi adoptate de Parlament;", "b) în cazul în care săvârşeşte o infracţiune;", "c) în cazul în care emite decretul de dizolvare a Parlamentului în ultimele 6 luni ale mandatului."],
+        correct: 1,
+        text_ru: "Парламент может принять решение о привлечении к ответственности Президента Республики Молдова:",
+        options_ru: ["a) в случае отказа промульгировать закон, принятый Парламентом;", "b) в случае совершения им преступления;", "c) в случае издания указа о роспуске Парламента в последние 6 месяцев срока полномочий."],
+        hint: "Art. 89 alin. (1) din Constituție: Președintele poate fi pus sub acuzare pentru săvârșirea unei infracțiuni.",
+        hint_ru: "Ст. 89 ч. (1) Конституции: Президент может быть привлечён к ответственности за совершение преступления."
+    },
+    // Вопрос 65
+    {
+        id: 65,
+        text: "Procurorul General este numit în funcţie:",
+        options: ["a) pentru un mandat de 5 ani;", "b) pentru un mandat de 7 ani;", "c) pentru un mandat de 6 ani."],
+        correct: 1,
+        text_ru: "Генеральный прокурор назначается на должность:",
+        options_ru: ["a) сроком на 5 лет;", "b) сроком на 7 лет;", "c) сроком на 6 лет."],
+        hint: "Art. 124 alin. (2) din Constituție: Procurorul General este numit pentru un mandat de 7 ani.",
+        hint_ru: "Ст. 124 ч. (2) Конституции: Генеральный прокурор назначается сроком на 7 лет."
+    },
+    // Вопрос 66
+    {
+        id: 66,
+        text: "Președintele Republicii Moldova revocă și numește pe unii membri ai Guvernului la propunerea:",
+        options: ["a) Preşedintelui Parlamentului;", "b) Prim-ministrului;", "c) Curții Constituționale."],
+        correct: 1,
+        text_ru: "Президент Республики Молдова освобождает от должности и назначает отдельных членов Правительства по предложению:",
+        options_ru: ["a) Председателя Парламента;", "b) Премьер-министра;", "c) Конституционного суда."],
+        hint: "Art. 98 alin. (4) din Constituție: Președintele numește și revocă membrii Guvernului la propunerea Prim-ministrului.",
+        hint_ru: "Ст. 98 ч. (4) Конституции: Президент назначает и освобождает членов Правительства по предложению Премьер-министра."
+    },
+    // Вопрос 67
+    {
+        id: 67,
+        text: "Parlamentul Republicii Moldova își poate exprima neîncrederea în Guvern la propunerea:",
+        options: ["a) a cel puţin o pătrime din deputați;", "b) majorității parlamentare;", "c) Președintelui Republicii Moldova."],
+        correct: 0,
+        text_ru: "Парламент Республики Молдова может выразить недоверие Правительству по предложению:",
+        options_ru: ["a) не менее одной четверти депутатов;", "b) парламентского большинства;", "c) Президента Республики Молдова."],
+        hint: "Art. 106 din Constituție (sau art. 104 în vechea numerotare): moțiunea de cenzură poate fi inițiată de cel puțin o pătrime din deputați.",
+        hint_ru: "Ст. 106 Конституции (или ст. 104 в старой нумерации): резолюция порицания может быть инициирована не менее чем четвертью депутатов."
+    },
+    // Вопрос 68
+    {
+        id: 68,
+        text: "În baza votului de încredere acordat de Parlament, Guvernul Republicii Moldova este numit de:",
+        options: ["a) Președintele Parlamentului;", "b) Președintele republicii;", "c) Președintele Curții Constituționale."],
+        correct: 1,
+        text_ru: "На основании вотума доверия, предоставленного Парламентом, Правительство Республики Молдова назначается:",
+        options_ru: ["a) Председателем Парламента;", "b) Президентом республики;", "c) Председателем Конституционного суда."],
+        hint: "Art. 98 alin. (2) din Constituție: Guvernul este numit de Președinte pe baza votului de încredere al Parlamentului.",
+        hint_ru: "Ст. 98 ч. (2) Конституции: Правительство назначается Президентом на основании вотума доверия Парламента."
+    },
+    // Вопрос 69
+    {
+        id: 69,
+        text: "În cazul în care are obiecţii asupra unei legi transmise spre promulgare, Președintele Republicii Moldova este în drept:",
+        options: ["a) să o trimită, în termen de cel mult cinci zile lucrătoare, spre reexaminare, Guvernului;", "b) să o trimită, în termen de cel mult două săptămâni, spre reexaminare, Parlamentului;", "c) să o trimită, în termen de cel mult două săptămâni, spre reexaminare, autorului legii."],
+        correct: 1,
+        text_ru: "В случае возражений против закона, переданного на промульгацию, Президент Республики Молдова вправе:",
+        options_ru: ["a) направить его в срок не более пяти рабочих дней на повторное рассмотрение в Правительство;", "b) направить его в срок не более двух недель на повторное рассмотрение в Парламент;", "c) направить его в срок не более двух недель на повторное рассмотрение автору закона."],
+        hint: "Art. 93 alin. (2) din Constituție: Președintele poate trimite legea spre reexaminare Parlamentului în termen de două săptămâni.",
+        hint_ru: "Ст. 93 ч. (2) Конституции: Президент может направить закон на повторное рассмотрение в Парламент в двухнедельный срок."
+    },
+    // Вопрос 70
+    {
+        id: 70,
+        text: "Funcția de membru al Guvernului Republicii Moldova este incompatibilă cu:",
+        options: ["a) exercitarea activităţii comerciale;", "b) exercitarea activităţii politice;", "c) exercitarea oricărei alte funcții retribuite."],
+        correct: 2,
+        text_ru: "Должность члена Правительства Республики Молдова несовместима с:",
+        options_ru: ["a) осуществлением коммерческой деятельности;", "b) осуществлением политической деятельности;", "c) занятием любой другой оплачиваемой должности."],
+        hint: "Art. 101 din Constituție: funcția de membru al Guvernului este incompatibilă cu exercitarea oricărei alte funcții retribuite.",
+        hint_ru: "Ст. 101 Конституции: должность члена Правительства несовместима с занятием любой другой оплачиваемой должности."
+    },
+    // Вопрос 71
+    {
+        id: 71,
+        text: "În Republica Moldova proprietatea publică aparține:",
+        options: ["a) statului și asociațiilor comerciale;", "b) statului sau unităţilor administrativ-teritoriale;", "c) statului sau consiliilor locale;", "d) statului sau instituțiilor și autorităților publice."],
+        correct: 1,
+        text_ru: "В Республике Молдова публичная собственность принадлежит:",
+        options_ru: ["a) государству и коммерческим ассоциациям;", "b) государству или административно-территориальным единицам;", "c) государству или местным советам;", "d) государству или учреждениям и публичным властям."],
+        hint: "Art. 127 alin. (1) din Constituție: proprietatea publică aparține statului sau unităților administrativ-teritoriale.",
+        hint_ru: "Ст. 127 ч. (1) Конституции: публичная собственность принадлежит государству или административно-территориальным единицам."
+    },
+    // Вопрос 72
+    {
+        id: 72,
+        text: "Ordonanţele adoptate de Guvernul Republicii Moldova intră în vigoare:",
+        options: ["a) după promulgare, la data publicării;", "b) la data publicării, fără a fi promulgate;", "c) după promulgare, la data indicată în text;", "d) din momentul adoptări."],
+        correct: 1,
+        text_ru: "Ордонансы, принятые Правительством Республики Молдова, вступают в силу:",
+        options_ru: ["a) после промульгации, со дня опубликования;", "b) со дня опубликования, без промульгации;", "c) после промульгации, с даты, указанной в тексте;", "d) с момента принятия."],
+        hint: "Art. 102 din Constituție: ordonanțele intră în vigoare la data publicării, fără a fi promulgate.",
+        hint_ru: "Ст. 102 Конституции: ордонансы вступают в силу со дня опубликования, без промульгации."
+    },
+    // Вопрос 73
+    {
+        id: 73,
+        text: "În Republica Moldova, dreptul exclusiv la emisia monetară aparține:",
+        options: ["a) Guvernului Republicii Moldova;", "b) Băncii Naţionale a Republicii Moldova;", "c) Ministerului Finanțelor;", "d) Comisiei Naționale a Pieței Financiare din Republica Moldova."],
+        correct: 1,
+        text_ru: "В Республике Молдова исключительное право на эмиссию денег принадлежит:",
+        options_ru: ["a) Правительству Республики Молдова;", "b) Национальному банку Республики Молдова;", "c) Министерству финансов;", "d) Национальной комиссии по финансовому рынку Республики Молдова."],
+        hint: "Art. 10 din Legea cu privire la Banca Națională a Moldovei (sau art. 130 din Constituție): emisiunea monetară este dreptul exclusiv al Băncii Naționale.",
+        hint_ru: "Ст. 10 Закона о Национальном банке Молдовы (или ст. 130 Конституции): эмиссия денег является исключительным правом Национального банка."
+    },
+    // Вопрос 74
+    {
+        id: 74,
+        text: "Guvernul Republicii Moldova își exercită mandatul:",
+        options: ["a) până la demisia Prim-ministrului;", "b) până la data validării alegerilor pentru un nou Parlament;", "c) până la acordarea de către parlament a votului de încredere noului Guvern."],
+        correct: 2,
+        text_ru: "Правительство Республики Молдова осуществляет свои полномочия:",
+        options_ru: ["a) до отставки Премьер-министра;", "b) до даты утверждения результатов выборов нового Парламента;", "c) до предоставления Парламентом вотума доверия новому Правительству."],
+        hint: "Art. 98 alin. (5) din Constituție: Guvernul își exercită mandatul până la acordarea votului de încredere noului Guvern.",
+        hint_ru: "Ст. 98 ч. (5) Конституции: Правительство осуществляет свои полномочия до предоставления вотума доверия новому Правительству."
+    },
+    // Вопрос 75
+    {
+        id: 75,
+        text: "Judecătorii Curții Constituționale se numesc:",
+        options: ["a) pentru un mandat de 6 ani;", "b) pentru un mandat de 7 ani;", "c) pe viață."],
+        correct: 0,
+        text_ru: "Судьи Конституционного суда назначаются:",
+        options_ru: ["a) сроком на 6 лет;", "b) сроком на 7 лет;", "c) пожизненно."],
+        hint: "Art. 136 alin. (3) din Constituție: judecătorii Curții Constituționale sunt numiți pentru un mandat de 6 ani.",
+        hint_ru: "Ст. 136 ч. (3) Конституции: судьи Конституционного суда назначаются сроком на 6 лет."
+    },
+    // Вопрос 76
+    {
+        id: 76,
+        text: "Autorităţile administraţiei publice prin care se exercită autonomia locală în sate și în orașe, sunt:",
+        options: ["a) consilierii şi primarii aleși;", "b) consiliile locale alese și primarii aleși;", "c) consiliile locale alese, primarii și oficiile teritoriale ale Cancelariei de Stat."],
+        correct: 1,
+        text_ru: "Органами местного публичного управления, через которые осуществляется местная автономия в сёлах и городах, являются:",
+        options_ru: ["a) избранные советники и примары;", "b) избранные местные советы и примары;", "c) избранные местные советы, примары и территориальные офисы Государственной канцелярии."],
+        hint: "Art. 109 din Constituție: autonomia locală se exercită prin consiliile locale alese și primarii aleși.",
+        hint_ru: "Ст. 109 Конституции: местная автономия осуществляется через избранные местные советы и примаров."
+    },
+    // Вопрос 77
+    {
+        id: 77,
+        text: "Parlamentul Republicii Moldova adoptă:",
+        options: ["a) legi speciale, legi constituționale, legi marţiale și legi organice;", "b) legi constituționale, legi organice și legi ordinare;", "c) legi constituționale, legi speciale, legi formale și legi ordinare."],
+        correct: 1,
+        text_ru: "Парламент Республики Молдова принимает:",
+        options_ru: ["a) специальные законы, конституционные законы, законы военного времени и органические законы;", "b) конституционные законы, органические законы и обычные законы;", "c) конституционные законы, специальные законы, формальные законы и обычные законы."],
+        hint: "Art. 74 din Constituție: Parlamentul adoptă legi constituționale, organice și ordinare.",
+        hint_ru: "Ст. 74 Конституции: Парламент принимает конституционные, органические и обычные законы."
+    },
+    // Вопрос 78
+    {
+        id: 78,
+        text: "Consiliul Superior al Procurorilor este constituit:",
+        options: ["a) din procurori aleși din cadrul procuraturilor de toate nivelurile și din reprezentanți ai altor autorități, instituții publice sau ai societății civile;", "b) din procurori desemnați de Parlament și din reprezentanți ai instituțiilor publice sau ai societății civile;", "c) din procurori aleși de Institutul National al Justiției și din reprezentanți ai societății civile."],
+        correct: 0,
+        text_ru: "Высший совет прокуроров состоит из:",
+        options_ru: ["a) прокуроров, избранных из прокуратур всех уровней, и представителей других органов, публичных учреждений или гражданского общества;", "b) прокуроров, назначенных Парламентом, и представителей публичных учреждений или гражданского общества;", "c) прокуроров, избранных Национальным институтом юстиции, и представителей гражданского общества."],
+        hint: "Art. 124 alin. (4) din Constituție (sau legea specială): Consiliul Superior al Procurorilor este compus din procurori aleși și reprezentanți ai societății civile.",
+        hint_ru: "Ст. 124 ч. (4) Конституции (или специальный закон): Высший совет прокуроров состоит из избранных прокуроров и представителей гражданского общества."
+    },
+    // Вопрос 79
+    {
+        id: 79,
+        text: "Hotărârile Curții Constituționale a Republicii Moldova:",
+        options: ["a) nu pot fi atacate;", "b) pot fi atacate la Curtea Supremă de Justiție;", "c) pot fi atacate la Curtea Europeană a Drepturilor Omului."],
+        correct: 0,
+        text_ru: "Решения Конституционного суда Республики Молдова:",
+        options_ru: ["a) не могут быть обжалованы;", "b) могут быть обжалованы в Верховном суде;", "c) могут быть обжалованы в Европейском суде по правам человека."],
+        hint: "Art. 140 din Constituție: hotărârile Curții Constituționale sunt definitive și nu pot fi atacate.",
+        hint_ru: "Ст. 140 Конституции: решения Конституционного суда окончательны и не могут быть обжалованы."
+    },
+    // Вопрос 80
+    {
+        id: 80,
+        text: "În Republica Moldova, protecția mediului înconjurător constituie o obligație:",
+        options: ["a) a fiecărei persoane;", "b) a fiecărui cetățean;", "c) a fiecărui cetățean și persoane juridice."],
+        correct: 0,
+        text_ru: "В Республике Молдова охрана окружающей среды является обязанностью:",
+        options_ru: ["a) каждого человека;", "b) каждого гражданина;", "c) каждого гражданина и юридических лиц."],
+        hint: "Art. 37 alin. (2) din Constituție: protecția mediului constituie o obligație a fiecărei persoane.",
+        hint_ru: "Ст. 37 ч. (2) Конституции: охрана окружающей среды является обязанностью каждого человека."
+    },
+    // Вопрос 81
+    {
+        id: 81,
+        text: "Potrivit Constituției Republicii Moldova, averea dobândită licit:",
+        options: ["a) nu poate fi confiscată;", "b) poate fi confiscată potrivit legii;", "c) poate fi confiscată dacă este folosită irațional."],
+        correct: 0,
+        text_ru: "Согласно Конституции Республики Молдова, имущество, приобретённое законным путём:",
+        options_ru: ["a) не может быть конфисковано;", "b) может быть конфисковано в соответствии с законом;", "c) может быть конфисковано, если используется нерационально."],
+        hint: "Art. 46 alin. (1) din Constituție: averea dobândită licit nu poate fi confiscată.",
+        hint_ru: "Ст. 46 ч. (1) Конституции: имущество, приобретённое законным путём, не может быть конфисковано."
+    },
+    // Вопрос 82
+    {
+        id: 82,
+        text: "Potrivit Constituției Republicii Moldova, perchezițiile și cercetările la fața locului pot fi ordonate și efectuate numai:",
+        options: ["a) în cazul săvârșirii unor infracțiuni;", "b) în condițiile legii;", "c) în baza unei hotărâri judecătorești."],
+        correct: 2,
+        text_ru: "Согласно Конституции Республики Молдова, обыски и осмотры на месте могут быть санкционированы и проведены только:",
+        options_ru: ["a) в случае совершения преступлений;", "b) в условиях, установленных законом;", "c) на основании судебного решения."],
+        hint: "Art. 25 alin. (4) din Constituție: perchezițiile se efectuează numai în baza unei hotărâri judecătorești.",
+        hint_ru: "Ст. 25 ч. (4) Конституции: обыски проводятся только на основании судебного решения."
+    },
+    // Вопрос 83
+    {
+        id: 83,
+        text: "Modul de funcționare a limbilor pe teritoriul Republicii Moldova se stabilește prin:",
+        options: ["a) Constituția Republicii Moldova;", "b) Hotărârea Parlamentului Republicii Moldova;", "c) Lege organică."],
+        correct: 2,
+        text_ru: "Порядок функционирования языков на территории Республики Молдова устанавливается:",
+        options_ru: ["a) Конституцией Республики Молдова;", "b) Постановлением Парламента Республики Молдова;", "c) Органическим законом."],
+        hint: "Art. 13 alin. (2) din Constituție: modul de funcționare a limbilor se stabilește prin lege organică.",
+        hint_ru: "Ст. 13 ч. (2) Конституции: порядок функционирования языков устанавливается органическим законом."
+    },
+    // Вопрос 84
+    {
+        id: 84,
+        text: "Care sunt factorii de bază ai economiei stabiliți în Constituția Republicii Moldova?",
+        options: ["a) economia de piață, proprietatea privată și concurența loială;", "b) statul inovațional și libera inițiativă economică;", "c) piața, libera inițiativă economică, concurența loială."],
+        correct: 0,
+        text_ru: "Каковы основные факторы экономики, установленные в Конституции Республики Молдова?",
+        options_ru: ["a) рыночная экономика, частная собственность и добросовестная конкуренция;", "b) инновационное государство и свобода экономической инициативы;", "c) рынок, свобода экономической инициативы, добросовестная конкуренция."],
+        hint: "Art. 126 din Constituție: economia se bazează pe economia de piață, proprietatea privată și concurența loială.",
+        hint_ru: "Ст. 126 Конституции: экономика основана на рыночной экономике, частной собственности и добросовестной конкуренции."
+    },
+    // Вопрос 85
+    {
+        id: 85,
+        text: "Constituția Republicii Moldova declară drept obiectiv strategic:",
+        options: ["a) integrarea în Uniunea Europeană și spațiul euroatlantic;", "b) garantarea drepturilor omului;", "c) integrarea în Uniunea Europeană;", "d) statul de drept."],
+        correct: 2,
+        text_ru: "Конституция Республики Молдова объявляет стратегической целью:",
+        options_ru: ["a) интеграцию в Европейский Союз и евроатлантическое пространство;", "b) гарантирование прав человека;", "c) интеграцию в Европейский Союз;", "d) правовое государство."],
+        hint: "Art. 8 din Constituție (sau preambul): integrarea în Uniunea Europeană este obiectiv strategic.",
+        hint_ru: "Ст. 8 Конституции (или преамбула): интеграция в Европейский Союз является стратегической целью."
+    },
+    // Вопрос 86
+    {
+        id: 86,
+        text: "Potrivit Constituției Republicii Moldova, îndatorirea primordială a statului constă în:",
+        options: ["a) respectarea Cartei Organizației Națiunilor Unite și tratatelor la care este parte;", "b) neutralitatea sa permanentă;", "c) respectarea și ocrotirea persoanei."],
+        correct: 2,
+        text_ru: "Согласно Конституции Республики Молдова, первоочередная обязанность государства состоит в:",
+        options_ru: ["a) соблюдении Устава Организации Объединённых Наций и договоров, участницей которых оно является;", "b) своём постоянном нейтралитете;", "c) уважении и защите личности."],
+        hint: "Art. 1 alin. (3) din Constituție: îndatorirea primordială a statului este respectarea și ocrotirea persoanei.",
+        hint_ru: "Ст. 1 ч. (3) Конституции: первоочередная обязанность государства – уважение и защита личности."
+    },
+    // Вопрос 87
+    {
+        id: 87,
+        text: "Conform Constituției Republicii Moldova, cetățenii străini și apatrizii pot fi extrădați:",
+        options: ["a) în cazul nerespectării termenului de ședere;", "b) în baza unei convenții internaționale sau în temeiul hotărârii instanței de judecată;", "c) în cazul săvârșirii unor infracțiuni sau în temeiul hotărârii instanței de judecată."],
+        correct: 1,
+        text_ru: "Согласно Конституции Республики Молдова, иностранные граждане и лица без гражданства могут быть экстрадированы:",
+        options_ru: ["a) в случае нарушения срока проживания;", "b) на основании международной конвенции или по решению суда;", "c) в случае совершения преступлений или по решению суда."],
+        hint: "Art. 19 alin. (2) din Constituție: extrădarea se face în baza convențiilor internaționale sau a hotărârii judecătorești.",
+        hint_ru: "Ст. 19 ч. (2) Конституции: экстрадиция осуществляется на основании международных конвенций или судебного решения."
+    },
+    // Вопрос 88
+    {
+        id: 88,
+        text: "În Republica Moldova, funcțiile publice ai căror titulari nu pot face parte din partide se stabilesc:",
+        options: ["a) prin hotărârea Curții Constituționale;", "b) prin lege organică;", "c) prin hotărârea Guvernului;", "d) prin lege constituțională."],
+        correct: 1,
+        text_ru: "В Республике Молдова публичные должности, обладатели которых не могут состоять в партиях, устанавливаются:",
+        options_ru: ["a) постановлением Конституционного суда;", "b) органическим законом;", "c) постановлением Правительства;", "d) конституционным законом."],
+        hint: "Art. 41 alin. (4) din Constituție: funcțiile publice incompatibile cu apartenența la partide se stabilesc prin lege organică.",
+        hint_ru: "Ст. 41 ч. (4) Конституции: публичные должности, несовместимые с членством в партиях, устанавливаются органическим законом."
+    },
+    // Вопрос 89
+    {
+        id: 89,
+        text: "Organizarea și desfășurarea referendumului se reglementează:",
+        options: ["a) prin Constituția Republicii Moldova;", "b) prin lege ordinară;", "c) prin lege organică."],
+        correct: 2,
+        text_ru: "Организация и проведение референдума регулируются:",
+        options_ru: ["a) Конституцией Республики Молдова;", "b) обычным законом;", "c) органическим законом."],
+        hint: "Art. 75 din Constituție: referendumul se organizează în temeiul legii organice.",
+        hint_ru: "Ст. 75 Конституции: референдум организуется на основании органического закона."
+    },
+    // Вопрос 90
+    {
+        id: 90,
+        text: "În Republica Moldova, pluralismul politic este incompatibil:",
+        options: ["a) cu regimul politic totalitar;", "b) cu regimul politic comunist;", "c) cu dictatura și cu totalitarismul."],
+        correct: 2,
+        text_ru: "В Республике Молдова политический плюрализм несовместим:",
+        options_ru: ["a) с тоталитарным политическим режимом;", "b) с коммунистическим политическим режимом;", "c) с диктатурой и тоталитаризмом."],
+        hint: "Art. 5 din Constituție: pluralismul politic este incompatibil cu dictatura și totalitarismul.",
+        hint_ru: "Ст. 5 Конституции: политический плюрализм несовместим с диктатурой и тоталитаризмом."
+    },
+    // Вопрос 91
+    {
+        id: 91,
+        text: "Democrația în Republica Moldova se exercită în condițiile:",
+        options: ["a) pluripartismului de opinii;", "b) principiului majorității;", "c) disciplinii sociale;", "d) pluralismului politic."],
+        correct: 3,
+        text_ru: "Демократия в Республике Молдова осуществляется в условиях:",
+        options_ru: ["a) плюрализма мнений;", "b) принципа большинства;", "c) социальной дисциплины;", "d) политического плюрализма."],
+        hint: "Art. 5 din Constituție: democrația se exercită în condițiile pluralismului politic.",
+        hint_ru: "Ст. 5 Конституции: демократия осуществляется в условиях политического плюрализма."
+    },
+    // Вопрос 92
+    {
+        id: 92,
+        text: "Potrivit Constituției, Republica Moldova este patria comună:",
+        options: ["a) a tuturor cetăţenilor săi;", "b) a cetățenilor Republicii Moldova și a cetățenilor străini;", "c) a persoanelor care au dobândit cetățenia Republicii Moldova prin naștere."],
+        correct: 0,
+        text_ru: "Согласно Конституции, Республика Молдова является общей родиной:",
+        options_ru: ["a) всех своих граждан;", "b) граждан Республики Молдова и иностранных граждан;", "c) лиц, приобретших гражданство Республики Молдова по рождению."],
+        hint: "Art. 10 alin. (1) din Constituție: Republica Moldova este patria comună a tuturor cetățenilor săi.",
+        hint_ru: "Ст. 10 ч. (1) Конституции: Республика Молдова является общей родиной всех своих граждан."
+    },
+    // Вопрос 93
+    {
+        id: 93,
+        text: "Culorile Drapelului de Stat al Republicii Moldova sunt dispuse:",
+        options: ["a) vertical, în ordinea următoare, începând de la lance: albastru, galben, roșu;", "b) vertical, în ordinea următoare, începând de la lance: roșu, galben, albastru;", "c) vertical, în ordinea următoare, începând de la lance: galben, albastru, roșu."],
+        correct: 0,
+        text_ru: "Цвета Государственного флага Республики Молдова расположены:",
+        options_ru: ["a) вертикально, в следующем порядке, начиная от древка: синий, жёлтый, красный;", "b) вертикально, в следующем порядке, начиная от древка: красный, жёлтый, синий;", "c) вертикально, в следующем порядке, начиная от древка: жёлтый, синий, красный."],
+        hint: "Art. 12 alin. (3) din Constituție: culorile drapelului sunt albastru, galben, roșu, dispuse vertical.",
+        hint_ru: "Ст. 12 ч. (3) Конституции: цвета флага – синий, жёлтый, красный, расположены вертикально."
+    },
+    // Вопрос 94
+    {
+        id: 94,
+        text: "Potrivit Constituției Republicii Moldova, statul facilitează studierea:",
+        options: ["a) limbii române pentru alolingvi;", "b) limbilor de circulație internațională;", "c) limbilor minorităților naționale."],
+        correct: 2,
+        text_ru: "Согласно Конституции Республики Молдова, государство способствует изучению:",
+        options_ru: ["a) румынского языка для иноязычных;", "b) языков международного общения;", "c) языков национальных меньшинств."],
+        hint: "Art. 13 alin. (3) din Constituție: statul facilitează studierea limbilor minorităților naționale.",
+        hint_ru: "Ст. 13 ч. (3) Конституции: государство способствует изучению языков национальных меньшинств."
+    },
+    // Вопрос 95
+    {
+        id: 95,
+        text: "Cetățenii Republicii Moldova beneficiază de drepturile și de libertățile consacrate prin:",
+        options: ["a) Constituţie şi prin alte legi;", "b) Constituţie, prin legi și hotărâri ale Guvernului;", "c) Declarația Europeană a Drepturilor Omului;", "d) Declarația Universală a Drepturilor Omului și prin Constituție."],
+        correct: 0,
+        text_ru: "Граждане Республики Молдова пользуются правами и свободами, закреплёнными:",
+        options_ru: ["a) Конституцией и другими законами;", "b) Конституцией, законами и постановлениями Правительства;", "c) Европейской декларацией прав человека;", "d) Всеобщей декларацией прав человека и Конституцией."],
+        hint: "Art. 4 alin. (1) din Constituție: drepturile și libertățile sunt consacrate prin Constituție și prin legi.",
+        hint_ru: "Ст. 4 ч. (1) Конституции: права и свободы закреплены Конституцией и законами."
+    },
+    // Вопрос 96
+    {
+        id: 96,
+        text: "Potrivit Constituției Republicii Moldova, eliberarea celui reținut sau arestat este obligatorie dacă:",
+        options: ["a) a fost introdusă cauțiunea;", "b) avocatul a contestat decizia instanței;", "c) motivele reţinerii sau arestării au dispărut;", "d) dacă acesta și-a recunoscut vina."],
+        correct: 2,
+        text_ru: "Согласно Конституции Республики Молдова, освобождение задержанного или арестованного обязательно, если:",
+        options_ru: ["a) был внесён залог;", "b) адвокат обжаловал решение суда;", "c) основания задержания или ареста отпали;", "d) если он признал свою вину."],
+        hint: "Art. 25 alin. (3) din Constituție: eliberarea este obligatorie dacă motivele reținerii au dispărut.",
+        hint_ru: "Ст. 25 ч. (3) Конституции: освобождение обязательно, если основания задержания отпали."
+    },
+    // Вопрос 97
+    {
+        id: 97,
+        text: "Oricărui cetățean al Republicii Moldova îi este asigurat dreptul de a-şi stabili domiciliul sau reședința:",
+        options: ["a) în orice localitate din tara și din străinătate;", "b) în orice localitate din țară;", "c) în orice localitate din ţară și din statele cu care Republica Moldova are încheiate acorduri."],
+        correct: 1,
+        text_ru: "Каждому гражданину Республики Молдова гарантируется право на установление места жительства или временного проживания:",
+        options_ru: ["a) в любом населённом пункте страны и за рубежом;", "b) в любом населённом пункте страны;", "c) в любом населённом пункте страны и в государствах, с которыми Республика Молдова заключила соглашения."],
+        hint: "Art. 33 alin. (1) din Constituție: dreptul de a-și stabili domiciliul în orice localitate din țară.",
+        hint_ru: "Ст. 33 ч. (1) Конституции: право устанавливать место жительства в любом населённом пункте страны."
+    },
+    // Вопрос 98
+    {
+        id: 98,
+        text: "În Republica Moldova percheziţiile în timpul nopţii sunt interzise, în afară de:",
+        options: ["a) cazul în care autoritățile sunt informate că în încăpere sunt minori;", "b) cazul unui delict flagrant;", "c) cazul în care nu există o hotărâre judecătorească."],
+        correct: 1,
+        text_ru: "В Республике Молдова обыски в ночное время запрещены, за исключением:",
+        options_ru: ["a) случая, когда власти информированы о том, что в помещении находятся несовершеннолетние;", "b) случая явного преступления;", "c) случая, когда нет судебного решения."],
+        hint: "Art. 25 alin. (4) din Constituție: perchezițiile în timpul nopții sunt interzise, cu excepția cazului unui delict flagrant.",
+        hint_ru: "Ст. 25 ч. (4) Конституции: обыски в ночное время запрещены, за исключением случая явного преступления."
+    },
+    // Вопрос 99
+    {
+        id: 99,
+        text: "În Republica Moldova studierea limbii române se asigură:",
+        options: ["a) în instituţiile de învățământ de toate gradele;", "b) în instituțiile de învățământ general;", "c) în învățământul liceal."],
+        correct: 0,
+        text_ru: "В Республике Молдова изучение румынского языка обеспечивается:",
+        options_ru: ["a) в учебных заведениях всех уровней;", "b) в общеобразовательных учебных заведениях;", "c) в лицейском образовании."],
+        hint: "Art. 13 alin. (1) din Constituție: studierea limbii române se asigură în instituțiile de învățământ de toate gradele.",
+        hint_ru: "Ст. 13 ч. (1) Конституции: изучение румынского языка обеспечивается в учебных заведениях всех уровней."
+    },
+    // Вопрос 100
+    {
+        id: 100,
+        text: "Potrivit Constituției, baza puterii de stat în Republica Moldova o constituie:",
+        options: ["a) voința poporului;", "b) voința cetățenilor;", "c) voința alegătorilor."],
+        correct: 0,
+        text_ru: "Согласно Конституции, основу государственной власти в Республике Молдова составляет:",
+        options_ru: ["a) воля народа;", "b) воля граждан;", "c) воля избирателей."],
+        hint: "Art. 2 alin. (1) din Constituție: baza puterii de stat o constituie voința poporului.",
+        hint_ru: "Ст. 2 ч. (1) Конституции: основу государственной власти составляет воля народа."
+    },
+    // Вопрос 101
+    {
+        id: 101,
+        text: "În Republica Moldova,  accesul la o funcție publică se asigură:",
+        options: ["a) oricărei persoane care dispune de calificarea necesară;", "b) oricărei persoane care dispune de experiență în domeniul public;", "c) oricărui cetățean;", "d) oricărui cetățean care cunoaște limba română."],
+        correct: 2,
+        text_ru: "В Республике Молдова доступ к публичной должности обеспечивается:",
+        options_ru: ["a) любому лицу, обладающему необходимой квалификацией;", "b) любому лицу, имеющему опыт в публичной сфере;", "c) любому гражданину;", "d) любому гражданину, владеющему румынским языком."],
+        hint: "Art. 16 alin. (2) din Constituție: accesul la o funcție publică este asigurat oricărui cetățean.",
+        hint_ru: "Ст. 16 ч. (2) Конституции: доступ к публичной должности обеспечивается любому гражданину."
+    },
+    // Вопрос 102
+    {
+        id: 102,
+        text: "Orice salariat are dreptul de a întemeia şi de a se afilia la sindicate pentru:",
+        options: ["a) apărarea intereselor sale;", "b) negocieri în materie de muncă;", "c) stabilirea regimului de muncă, instituirea unui salariu minim pe economie, repaosul săptămânal, concediul de odihnă plătit, prestarea muncii în condiţii grele, precum şi pentru alte scopuri specifice."],
+        correct: 0,
+        text_ru: "Любой работник имеет право создавать и вступать в профсоюзы для:",
+        options_ru: ["a) защиты своих интересов;", "b) переговоров по трудовым вопросам;", "c) установления режима труда, введения минимальной заработной платы, еженедельного отдыха, оплачиваемого отпуска, работы в тяжёлых условиях, а также для других конкретных целей."],
+        hint: "Art. 42 alin. (1) din Constituție: salariații au dreptul să întemeieze sindicate pentru apărarea intereselor lor.",
+        hint_ru: "Ст. 42 ч. (1) Конституции: работники имеют право создавать профсоюзы для защиты своих интересов."
+    },
+    // Вопрос 103
+    {
+        id: 103,
+        text: "În Republica Moldova, o persoană poate fi supusă unui tratament medical forțat:",
+        options: ["a) în cazul în care persoana nu dispune de capacitate juridică;", "b) doar în cazurile prevăzute de lege;", "c) doar în cazul unei epidemii."],
+        correct: 1,
+        text_ru: "В Республике Молдова лицо может быть подвергнуто принудительному медицинскому лечению:",
+        options_ru: ["a) в случае, если лицо не обладает правоспособностью;", "b) только в случаях, предусмотренных законом;", "c) только в случае эпидемии."],
+        hint: "Art. 36 alin. (2) din Constituție: tratamentul medical forțat este permis numai în cazurile prevăzute de lege.",
+        hint_ru: "Ст. 36 ч. (2) Конституции: принудительное медицинское лечение допускается только в случаях, предусмотренных законом."
+    },
+    // Вопрос 104
+    {
+        id: 104,
+        text: "Potrivit Constituției Republicii Moldova, pentru prejudiciile cauzate prin erorile săvârșite în procesele penale de către organele de anchetă şi instanțele judecătorești poartă răspundere:",
+        options: ["a) statul;", "b) persoanele care au cauzat prejudiciile respective;", "c) ofițerii de urmărire penală, procurorii și judecătorii care au cauzat prejudiciile respective."],
+        correct: 0,
+        text_ru: "Согласно Конституции Республики Молдова, за вред, причинённый ошибками, допущенными в уголовных процессах органами следствия и судебными инстанциями, несёт ответственность:",
+        options_ru: ["a) государство;", "b) лица, причинившие соответствующий вред;", "c) следователи, прокуроры и судьи, причинившие соответствующий вред."],
+        hint: "Art. 53 din Constituție: statul răspunde pentru prejudiciile cauzate de erorile în procesele penale.",
+        hint_ru: "Ст. 53 Конституции: государство отвечает за вред, причинённый ошибками в уголовных процессах."
+    },
+    // Вопрос 105
+    {
+        id: 105,
+        text: "În Republica Moldova, apărarea Patriei este:",
+        options: ["a) un drept şi o datorie sfântă a fiecărui cetățean;", "b) un drept şi o datorie sfântă a membrilor Forțelor Armate;", "c) un drept și o datorie sfântă a fiecărei persoane cu domiciliu legal pe teritoriul Republicii Moldova."],
+        correct: 0,
+        text_ru: "В Республике Молдова защита Родины является:",
+        options_ru: ["a) правом и священной обязанностью каждого гражданина;", "b) правом и священной обязанностью членов Вооружённых сил;", "c) правом и священной обязанностью каждого лица, имеющего законное место жительства на территории Республики Молдова."],
+        hint: "Art. 57 din Constituție: apărarea Patriei este un drept și o datorie sfântă a fiecărui cetățean.",
+        hint_ru: "Ст. 57 Конституции: защита Родины является правом и священной обязанностью каждого гражданина."
+    },
+    // Вопрос 106
+    {
+        id: 106,
+        text: "Potrivit Constituției Republicii Moldova, în exercitarea mandatului, deputații:",
+        options: ["a) reprezintă interesele alegătorilor;", "b) sunt în serviciul poporului;", "c) sunt în serviciul statului;", "d) sunt în serviciul cetățenilor."],
+        correct: 1,
+        text_ru: "Согласно Конституции Республики Молдова, при осуществлении мандата депутаты:",
+        options_ru: ["a) представляют интересы избирателей;", "b) находятся на службе народа;", "c) находятся на службе государства;", "d) находятся на службе граждан."],
+        hint: "Art. 68 alin. (1) din Constituție: deputații sunt în serviciul poporului.",
+        hint_ru: "Ст. 68 ч. (1) Конституции: депутаты находятся на службе народа."
+    },
+    // Вопрос 107
+    {
+        id: 107,
+        text: "În Republica Moldova, orice deputat nu poate fi persecutat sau tras la răspundere juridică:",
+        options: ["a) pentru voturile sau pentru opiniile exprimate în exercitarea mandatului;", "b) pentru participarea la acțiunile de protest;", "c) pentru boicotarea ședințelor Parlamentului."],
+        correct: 0,
+        text_ru: "В Республике Молдова любой депутат не может быть преследуем или привлечён к юридической ответственности:",
+        options_ru: ["a) за голоса или мнения, выраженные при осуществлении мандата;", "b) за участие в протестных акциях;", "c) за бойкот заседаний Парламента."],
+        hint: "Art. 70 alin. (1) din Constituție: deputații nu pot fi persecutați pentru voturile sau opiniile exprimate în exercitarea mandatului.",
+        hint_ru: "Ст. 70 ч. (1) Конституции: депутаты не могут быть преследуемы за голоса или мнения, выраженные при осуществлении мандата."
+    },
+    // Вопрос 108
+    {
+        id: 108,
+        text: "Comandantul suprem al Forţelor Armate din Republica Moldova este:",
+        options: ["a) Ministrul apărării;", "b) Șeful Marelui Stat Major;", "c) Preşedintele Republicii Moldova."],
+        correct: 2,
+        text_ru: "Верховным главнокомандующим Вооружёнными силами Республики Молдова является:",
+        options_ru: ["a) Министр обороны;", "b) Начальник Генерального штаба;", "c) Президент Республики Молдова."],
+        hint: "Art. 87 lit. a) din Constituție: Președintele este comandantul suprem al forțelor armate.",
+        hint_ru: "Ст. 87 п. a) Конституции: Президент является верховным главнокомандующим вооружёнными силами."
+    },
+    // Вопрос 109
+    {
+        id: 109,
+        text: "Prim-ministrul Republicii Moldova emite dispoziții pentru:",
+        options: ["a) organizarea activităţii interne a Guvernului;", "b) angajarea și eliberarea din funcție a miniștrilor;", "c) convocarea ședințelor Guvernului;", "d) pentru declararea stării de urgență."],
+        correct: 0,
+        text_ru: "Премьер-министр Республики Молдова издаёт распоряжения для:",
+        options_ru: ["a) организации внутренней деятельности Правительства;", "b) назначения и освобождения от должности министров;", "c) созыва заседаний Правительства;", "d) объявления чрезвычайного положения."],
+        hint: "Art. 100 din Constituție: Prim-ministrul emite dispoziții pentru organizarea activității interne a Guvernului.",
+        hint_ru: "Ст. 100 Конституции: Премьер-министр издаёт распоряжения для организации внутренней деятельности Правительства."
+    },
+    // Вопрос 110
+    {
+        id: 110,
+        text: "Consiliul Superior al Magistraturii este:",
+        options: ["a) autoritatea judecătorească supremă;", "b) organul de autoadministrare a sistemului judecătoresc;", "c) garantul independenței autorității judecătorești;", "d) garantul inviolabilității judecătorilor."],
+        correct: 1,
+        text_ru: "Высший совет магистратуры является:",
+        options_ru: ["a) верховным судебным органом;", "b) органом самоуправления судебной системы;", "c) гарантом независимости судебной власти;", "d) гарантом неприкосновенности судей."],
+        hint: "Art. 116 din Constituție: Consiliul Superior al Magistraturii este organul de autoadministrare a sistemului judecătoresc.",
+        hint_ru: "Ст. 116 Конституции: Высший совет магистратуры является органом самоуправления судебной системы."
     }
 ];
 
-// Продолжение во второй части (вопросы 56–110 и логика приложения)
-    <script>
 // ==================================================================
-// ВОПРОСЫ 56–110
-// ==================================================================
-// Вопрос 56
-{
-    id: 56,
-    text: "Parlamentul Republicii Moldova este în drept să adopte o lege cu privire la modificarea Constituţiei:",
-    options: ["a) după cel mult 6 luni de la data prezentării iniţiativei corespunzătoare;", "b) după cel puţin 12 luni de la data prezentării iniţiativei corespunzătoare;", "c) după cel puţin 6 luni de la data prezentării inițiativei corespunzătoare."],
-    correct: 2,
-    text_ru: "Парламент Республики Молдова вправе принять закон о внесении изменений в Конституцию:",
-    options_ru: ["a) не позднее чем через 6 месяцев с даты представления соответствующей инициативы;", "b) не ранее чем через 12 месяцев с даты представления соответствующей инициативы;", "c) не ранее чем через 6 месяцев с даты представления соответствующей инициативы."],
-    hint: "Art. 141 alin. (2) din Constituție: legea de modificare a Constituției se adoptă după cel puțin 6 luni de la prezentarea inițiativei.",
-    hint_ru: "Ст. 141 ч. (2) Конституции: закон об изменении Конституции принимается не ранее чем через 6 месяцев после представления инициативы."
-},
-// Вопрос 57
-{
-    id: 57,
-    text: "În Republica Moldova reținerea nu poate depăși:",
-    options: ["a) 48 ore;", "b) 24 ore;", "c) 72 ore;", "d) 3 ore."],
-    correct: 2,
-    text_ru: "В Республике Молдова задержание не может превышать:",
-    options_ru: ["a) 48 часов;", "b) 24 часов;", "c) 72 часов;", "d) 3 часов."],
-    hint: "Art. 25 alin. (3) din Constituție: reținerea nu poate depăși 72 de ore.",
-    hint_ru: "Ст. 25 ч. (3) Конституции: задержание не может превышать 72 часов."
-},
-// Вопрос 58
-{
-    id: 58,
-    text: "Potrivit Constituției Republicii Moldova, dispozițiile privind drepturile și libertăţile omului se interpretează și se aplică:",
-    options: ["a) în concordanță cu Constituția Uniunii Europene, prevederile tratatelor internaţionale la care Republica Moldova este parte;", "b) în concordanţă cu Pactul cu privire la Drepturile Civile și Politice, Pactul cu privire la Drepturile Sociale, Econimice și Culturale și celelalte tratate la care Republica Moldova este parte;", "c) în concordanţă cu Declaraţia Universală a Drepturilor Omului, cu pactele și cu celelalte tratate la care Republica Moldova este parte."],
-    correct: 2,
-    text_ru: "Согласно Конституции Республики Молдова, положения о правах и свободах человека толкуются и применяются:",
-    options_ru: ["a) в соответствии с Конституцией Европейского Союза, положениями международных договоров, участницей которых является Республика Молдова;", "b) в соответствии с Пактом о гражданских и политических правах, Пактом об экономических, социальных и культурных правах и другими договорами, участницей которых является Республика Молдова;", "c) в соответствии с Всеобщей декларацией прав человека, пактами и другими договорами, участницей которых является Республика Молдова."],
-    hint: "Art. 4 alin. (2) din Constituție: drepturile omului se interpretează în concordanță cu Declarația Universală a Drepturilor Omului și cu pactele la care Republica Moldova este parte.",
-    hint_ru: "Ст. 4 ч. (2) Конституции: права человека толкуются в соответствии с Всеобщей декларацией прав человека и пактами, участницей которых является Республика Молдова."
-},
-// Вопрос 59
-{
-    id: 59,
-    text: "Potrivit Constituției Republicii Moldova, legile constituționale sunt:",
-    options: ["a) cele de revizuire a Constituției;", "b) cele prin care se stabilește starea de asediu sau de război;", "c) cele prin care se ratifică tratatele internaționale la care Republica Moldova este parte;", "d) cele prin care este reglementată organizarea și funcţionarea Curţii Constituționale, a Consiliului Superior al Magistraturii, a instanţelor judecătorești, a contenciosului administrativ."],
-    correct: 0,
-    text_ru: "Согласно Конституции Республики Молдова, конституционными законами являются:",
-    options_ru: ["a) законы о пересмотре Конституции;", "b) законы, устанавливающие осадное или военное положение;", "c) законы о ратификации международных договоров, участницей которых является Республика Молдова;", "d) законы, регулирующие организацию и деятельность Конституционного суда, Высшего совета магистратуры, судебных инстанций, административного судопроизводства."],
-    hint: "Art. 74 alin. (1) din Constituție: legile constituționale sunt cele de revizuire a Constituției.",
-    hint_ru: "Ст. 74 ч. (1) Конституции: конституционные законы – это законы о пересмотре Конституции."
-},
-// Вопрос 60
-{
-    id: 60,
-    text: "Calitatea de Președinte al Republicii Moldova este incompatibilă cu exercitarea:",
-    options: ["a) activităţii didactice sau știinţifice;", "b) oricărei alte funcţii retribuite;", "c) activităţii în calitate de membru al unor organizații interguvernamentale."],
-    correct: 1,
-    text_ru: "Статус Президента Республики Молдова несовместим с занятием:",
-    options_ru: ["a) преподавательской или научной деятельностью;", "b) любой другой оплачиваемой должности;", "c) деятельностью в качестве члена межправительственных организаций."],
-    hint: "Art. 80 alin. (3) din Constituție: Președintele nu poate exercita nicio altă funcție retribuită.",
-    hint_ru: "Ст. 80 ч. (3) Конституции: Президент не может занимать любую другую оплачиваемую должность."
-},
-// Вопрос 61
-{
-    id: 61,
-    text: "Potrivit Constituției, pedeapsa cu moartea în Republica Moldova:",
-    options: ["a) este abolită;", "b) poate fi aplicată doar pentru infracţiuni de înaltă trădare;", "c) poate fi aplicată doar pentru infracțiuni de război;", "d) poate fi aplicată doar la decizia Curții Supreme de Justiție."],
-    correct: 0,
-    text_ru: "Согласно Конституции, смертная казнь в Республике Молдова:",
-    options_ru: ["a) отменена;", "b) может применяться только за государственную измену;", "c) может применяться только за военные преступления;", "d) может применяться только по решению Верховного суда."],
-    hint: "Art. 24 alin. (3) din Constituție: pedeapsa cu moartea este abolită.",
-    hint_ru: "Ст. 24 ч. (3) Конституции: смертная казнь отменена."
-},
-// Вопрос 62
-{
-    id: 62,
-    text: "În cursul unui an, Parlamentul Republicii Moldova poate fi dizolvat:",
-    options: ["a) de câte ori decid deputații;", "b) de 3 ori;", "c) o singură dată;", "d) de 2 ori."],
-    correct: 2,
-    text_ru: "В течение одного года Парламент Республики Молдова может быть распущен:",
-    options_ru: ["a) столько раз, сколько решат депутаты;", "b) 3 раза;", "c) только один раз;", "d) 2 раза."],
-    hint: "Art. 85 alin. (3) din Constituție: Parlamentul poate fi dizolvat o singură dată într-un an.",
-    hint_ru: "Ст. 85 ч. (3) Конституции: Парламент может быть распущен только один раз в год."
-},
-// Вопрос 63
-{
-    id: 63,
-    text: "Legile adoptate de Parlamentul Republici Moldova sunt promulgate de către:",
-    options: ["a) Președintele Parlamentului;", "b) Preşedintele Republicii Moldova;", "c) Guvernul Republicii Moldova;", "d) Prim-ministru."],
-    correct: 1,
-    text_ru: "Законы, принятые Парламентом Республики Молдова, промульгируются:",
-    options_ru: ["a) Председателем Парламента;", "b) Президентом Республики Молдова;", "c) Правительством Республики Молдова;", "d) Премьер-министром."],
-    hint: "Art. 93 din Constituție: legile sunt promulgate de Președintele Republicii Moldova.",
-    hint_ru: "Ст. 93 Конституции: законы промульгируются Президентом Республики Молдова."
-},
-// Вопрос 64
-{
-    id: 64,
-    text: "Parlamentul poate hotărî punerea sub acuzare a Președintelui Republicii Moldova:",
-    options: ["a) în cazul în care refuză promulgarea unei legi adoptate de Parlament;", "b) în cazul în care săvârşeşte o infracţiune;", "c) în cazul în care emite decretul de dizolvare a Parlamentului în ultimele 6 luni ale mandatului."],
-    correct: 1,
-    text_ru: "Парламент может принять решение о привлечении к ответственности Президента Республики Молдова:",
-    options_ru: ["a) в случае отказа промульгировать закон, принятый Парламентом;", "b) в случае совершения им преступления;", "c) в случае издания указа о роспуске Парламента в последние 6 месяцев срока полномочий."],
-    hint: "Art. 89 alin. (1) din Constituție: Președintele poate fi pus sub acuzare pentru săvârșirea unei infracțiuni.",
-    hint_ru: "Ст. 89 ч. (1) Конституции: Президент может быть привлечён к ответственности за совершение преступления."
-},
-// Вопрос 65
-{
-    id: 65,
-    text: "Procurorul General este numit în funcţie:",
-    options: ["a) pentru un mandat de 5 ani;", "b) pentru un mandat de 7 ani;", "c) pentru un mandat de 6 ani."],
-    correct: 1,
-    text_ru: "Генеральный прокурор назначается на должность:",
-    options_ru: ["a) сроком на 5 лет;", "b) сроком на 7 лет;", "c) сроком на 6 лет."],
-    hint: "Art. 124 alin. (2) din Constituție: Procurorul General este numit pentru un mandat de 7 ani.",
-    hint_ru: "Ст. 124 ч. (2) Конституции: Генеральный прокурор назначается сроком на 7 лет."
-},
-// Вопрос 66
-{
-    id: 66,
-    text: "Președintele Republicii Moldova revocă și numește pe unii membri ai Guvernului la propunerea:",
-    options: ["a) Preşedintelui Parlamentului;", "b) Prim-ministrului;", "c) Curții Constituționale."],
-    correct: 1,
-    text_ru: "Президент Республики Молдова освобождает от должности и назначает отдельных членов Правительства по предложению:",
-    options_ru: ["a) Председателя Парламента;", "b) Премьер-министра;", "c) Конституционного суда."],
-    hint: "Art. 98 alin. (4) din Constituție: Președintele numește și revocă membrii Guvernului la propunerea Prim-ministrului.",
-    hint_ru: "Ст. 98 ч. (4) Конституции: Президент назначает и освобождает членов Правительства по предложению Премьер-министра."
-},
-// Вопрос 67
-{
-    id: 67,
-    text: "Parlamentul Republicii Moldova își poate exprima neîncrederea în Guvern la propunerea:",
-    options: ["a) a cel puţin o pătrime din deputați;", "b) majorității parlamentare;", "c) Președintelui Republicii Moldova."],
-    correct: 0,
-    text_ru: "Парламент Республики Молдова может выразить недоверие Правительству по предложению:",
-    options_ru: ["a) не менее одной четверти депутатов;", "b) парламентского большинства;", "c) Президента Республики Молдова."],
-    hint: "Art. 106 din Constituție (sau art. 104 în vechea numerotare): moțiunea de cenzură poate fi inițiată de cel puțin o pătrime din deputați.",
-    hint_ru: "Ст. 106 Конституции (или ст. 104 в старой нумерации): резолюция порицания может быть инициирована не менее чем четвертью депутатов."
-},
-// Вопрос 68
-{
-    id: 68,
-    text: "În baza votului de încredere acordat de Parlament, Guvernul Republicii Moldova este numit de:",
-    options: ["a) Președintele Parlamentului;", "b) Președintele republicii;", "c) Președintele Curții Constituționale."],
-    correct: 1,
-    text_ru: "На основании вотума доверия, предоставленного Парламентом, Правительство Республики Молдова назначается:",
-    options_ru: ["a) Председателем Парламента;", "b) Президентом республики;", "c) Председателем Конституционного суда."],
-    hint: "Art. 98 alin. (2) din Constituție: Guvernul este numit de Președinte pe baza votului de încredere al Parlamentului.",
-    hint_ru: "Ст. 98 ч. (2) Конституции: Правительство назначается Президентом на основании вотума доверия Парламента."
-},
-// Вопрос 69
-{
-    id: 69,
-    text: "În cazul în care are obiecţii asupra unei legi transmise spre promulgare, Președintele Republicii Moldova este în drept:",
-    options: ["a) să o trimită, în termen de cel mult cinci zile lucrătoare, spre reexaminare, Guvernului;", "b) să o trimită, în termen de cel mult două săptămâni, spre reexaminare, Parlamentului;", "c) să o trimită, în termen de cel mult două săptămâni, spre reexaminare, autorului legii."],
-    correct: 1,
-    text_ru: "В случае возражений против закона, переданного на промульгацию, Президент Республики Молдова вправе:",
-    options_ru: ["a) направить его в срок не более пяти рабочих дней на повторное рассмотрение в Правительство;", "b) направить его в срок не более двух недель на повторное рассмотрение в Парламент;", "c) направить его в срок не более двух недель на повторное рассмотрение автору закона."],
-    hint: "Art. 93 alin. (2) din Constituție: Președintele poate trimite legea spre reexaminare Parlamentului în termen de două săptămâni.",
-    hint_ru: "Ст. 93 ч. (2) Конституции: Президент может направить закон на повторное рассмотрение в Парламент в двухнедельный срок."
-},
-// Вопрос 70
-{
-    id: 70,
-    text: "Funcția de membru al Guvernului Republicii Moldova este incompatibilă cu:",
-    options: ["a) exercitarea activităţii comerciale;", "b) exercitarea activităţii politice;", "c) exercitarea oricărei alte funcții retribuite."],
-    correct: 2,
-    text_ru: "Должность члена Правительства Республики Молдова несовместима с:",
-    options_ru: ["a) осуществлением коммерческой деятельности;", "b) осуществлением политической деятельности;", "c) занятием любой другой оплачиваемой должности."],
-    hint: "Art. 101 din Constituție: funcția de membru al Guvernului este incompatibilă cu exercitarea oricărei alte funcții retribuite.",
-    hint_ru: "Ст. 101 Конституции: должность члена Правительства несовместима с занятием любой другой оплачиваемой должности."
-},
-// Вопрос 71
-{
-    id: 71,
-    text: "În Republica Moldova proprietatea publică aparține:",
-    options: ["a) statului și asociațiilor comerciale;", "b) statului sau unităţilor administrativ-teritoriale;", "c) statului sau consiliilor locale;", "d) statului sau instituțiilor și autorităților publice."],
-    correct: 1,
-    text_ru: "В Республике Молдова публичная собственность принадлежит:",
-    options_ru: ["a) государству и коммерческим ассоциациям;", "b) государству или административно-территориальным единицам;", "c) государству или местным советам;", "d) государству или учреждениям и публичным властям."],
-    hint: "Art. 127 alin. (1) din Constituție: proprietatea publică aparține statului sau unităților administrativ-teritoriale.",
-    hint_ru: "Ст. 127 ч. (1) Конституции: публичная собственность принадлежит государству или административно-территориальным единицам."
-},
-// Вопрос 72
-{
-    id: 72,
-    text: "Ordonanţele adoptate de Guvernul Republicii Moldova intră în vigoare:",
-    options: ["a) după promulgare, la data publicării;", "b) la data publicării, fără a fi promulgate;", "c) după promulgare, la data indicată în text;", "d) din momentul adoptări."],
-    correct: 1,
-    text_ru: "Ордонансы, принятые Правительством Республики Молдова, вступают в силу:",
-    options_ru: ["a) после промульгации, со дня опубликования;", "b) со дня опубликования, без промульгации;", "c) после промульгации, с даты, указанной в тексте;", "d) с момента принятия."],
-    hint: "Art. 102 din Constituție: ordonanțele intră în vigoare la data publicării, fără a fi promulgate.",
-    hint_ru: "Ст. 102 Конституции: ордонансы вступают в силу со дня опубликования, без промульгации."
-},
-// Вопрос 73
-{
-    id: 73,
-    text: "În Republica Moldova, dreptul exclusiv la emisia monetară aparține:",
-    options: ["a) Guvernului Republicii Moldova;", "b) Băncii Naţionale a Republicii Moldova;", "c) Ministerului Finanțelor;", "d) Comisiei Naționale a Pieței Financiare din Republica Moldova."],
-    correct: 1,
-    text_ru: "В Республике Молдова исключительное право на эмиссию денег принадлежит:",
-    options_ru: ["a) Правительству Республики Молдова;", "b) Национальному банку Республики Молдова;", "c) Министерству финансов;", "d) Национальной комиссии по финансовому рынку Республики Молдова."],
-    hint: "Art. 10 din Legea cu privire la Banca Națională a Moldovei (sau art. 130 din Constituție): emisiunea monetară este dreptul exclusiv al Băncii Naționale.",
-    hint_ru: "Ст. 10 Закона о Национальном банке Молдовы (или ст. 130 Конституции): эмиссия денег является исключительным правом Национального банка."
-},
-// Вопрос 74
-{
-    id: 74,
-    text: "Guvernul Republicii Moldova își exercită mandatul:",
-    options: ["a) până la demisia Prim-ministrului;", "b) până la data validării alegerilor pentru un nou Parlament;", "c) până la acordarea de către parlament a votului de încredere noului Guvern."],
-    correct: 2,
-    text_ru: "Правительство Республики Молдова осуществляет свои полномочия:",
-    options_ru: ["a) до отставки Премьер-министра;", "b) до даты утверждения результатов выборов нового Парламента;", "c) до предоставления Парламентом вотума доверия новому Правительству."],
-    hint: "Art. 98 alin. (5) din Constituție: Guvernul își exercită mandatul până la acordarea votului de încredere noului Guvern.",
-    hint_ru: "Ст. 98 ч. (5) Конституции: Правительство осуществляет свои полномочия до предоставления вотума доверия новому Правительству."
-},
-// Вопрос 75
-{
-    id: 75,
-    text: "Judecătorii Curții Constituționale se numesc:",
-    options: ["a) pentru un mandat de 6 ani;", "b) pentru un mandat de 7 ani;", "c) pe viață."],
-    correct: 0,
-    text_ru: "Судьи Конституционного суда назначаются:",
-    options_ru: ["a) сроком на 6 лет;", "b) сроком на 7 лет;", "c) пожизненно."],
-    hint: "Art. 136 alin. (3) din Constituție: judecătorii Curții Constituționale sunt numiți pentru un mandat de 6 ani.",
-    hint_ru: "Ст. 136 ч. (3) Конституции: судьи Конституционного суда назначаются сроком на 6 лет."
-},
-// Вопрос 76
-{
-    id: 76,
-    text: "Autorităţile administraţiei publice prin care se exercită autonomia locală în sate și în orașe, sunt:",
-    options: ["a) consilierii şi primarii aleși;", "b) consiliile locale alese și primarii aleși;", "c) consiliile locale alese, primarii și oficiile teritoriale ale Cancelariei de Stat."],
-    correct: 1,
-    text_ru: "Органами местного публичного управления, через которые осуществляется местная автономия в сёлах и городах, являются:",
-    options_ru: ["a) избранные советники и примары;", "b) избранные местные советы и примары;", "c) избранные местные советы, примары и территориальные офисы Государственной канцелярии."],
-    hint: "Art. 109 din Constituție: autonomia locală se exercită prin consiliile locale alese și primarii aleși.",
-    hint_ru: "Ст. 109 Конституции: местная автономия осуществляется через избранные местные советы и примаров."
-},
-// Вопрос 77
-{
-    id: 77,
-    text: "Parlamentul Republicii Moldova adoptă:",
-    options: ["a) legi speciale, legi constituționale, legi marţiale și legi organice;", "b) legi constituționale, legi organice și legi ordinare;", "c) legi constituționale, legi speciale, legi formale și legi ordinare."],
-    correct: 1,
-    text_ru: "Парламент Республики Молдова принимает:",
-    options_ru: ["a) специальные законы, конституционные законы, законы военного времени и органические законы;", "b) конституционные законы, органические законы и обычные законы;", "c) конституционные законы, специальные законы, формальные законы и обычные законы."],
-    hint: "Art. 74 din Constituție: Parlamentul adoptă legi constituționale, organice și ordinare.",
-    hint_ru: "Ст. 74 Конституции: Парламент принимает конституционные, органические и обычные законы."
-},
-// Вопрос 78
-{
-    id: 78,
-    text: "Consiliul Superior al Procurorilor este constituit:",
-    options: ["a) din procurori aleși din cadrul procuraturilor de toate nivelurile și din reprezentanți ai altor autorități, instituții publice sau ai societății civile;", "b) din procurori desemnați de Parlament și din reprezentanți ai instituțiilor publice sau ai societății civile;", "c) din procurori aleși de Institutul National al Justiției și din reprezentanți ai societății civile."],
-    correct: 0,
-    text_ru: "Высший совет прокуроров состоит из:",
-    options_ru: ["a) прокуроров, избранных из прокуратур всех уровней, и представителей других органов, публичных учреждений или гражданского общества;", "b) прокуроров, назначенных Парламентом, и представителей публичных учреждений или гражданского общества;", "c) прокуроров, избранных Национальным институтом юстиции, и представителей гражданского общества."],
-    hint: "Art. 124 alin. (4) din Constituție (sau legea specială): Consiliul Superior al Procurorilor este compus din procurori aleși și reprezentanți ai societății civile.",
-    hint_ru: "Ст. 124 ч. (4) Конституции (или специальный закон): Высший совет прокуроров состоит из избранных прокуроров и представителей гражданского общества."
-},
-// Вопрос 79
-{
-    id: 79,
-    text: "Hotărârile Curții Constituționale a Republicii Moldova:",
-    options: ["a) nu pot fi atacate;", "b) pot fi atacate la Curtea Supremă de Justiție;", "c) pot fi atacate la Curtea Europeană a Drepturilor Omului."],
-    correct: 0,
-    text_ru: "Решения Конституционного суда Республики Молдова:",
-    options_ru: ["a) не могут быть обжалованы;", "b) могут быть обжалованы в Верховном суде;", "c) могут быть обжалованы в Европейском суде по правам человека."],
-    hint: "Art. 140 din Constituție: hotărârile Curții Constituționale sunt definitive și nu pot fi atacate.",
-    hint_ru: "Ст. 140 Конституции: решения Конституционного суда окончательны и не могут быть обжалованы."
-},
-// Вопрос 80
-{
-    id: 80,
-    text: "În Republica Moldova, protecția mediului înconjurător constituie o obligație:",
-    options: ["a) a fiecărei persoane;", "b) a fiecărui cetățean;", "c) a fiecărui cetățean și persoane juridice."],
-    correct: 0,
-    text_ru: "В Республике Молдова охрана окружающей среды является обязанностью:",
-    options_ru: ["a) каждого человека;", "b) каждого гражданина;", "c) каждого гражданина и юридических лиц."],
-    hint: "Art. 37 alin. (2) din Constituție: protecția mediului constituie o obligație a fiecărei persoane.",
-    hint_ru: "Ст. 37 ч. (2) Конституции: охрана окружающей среды является обязанностью каждого человека."
-},
-// Вопрос 81
-{
-    id: 81,
-    text: "Potrivit Constituției Republicii Moldova, averea dobândită licit:",
-    options: ["a) nu poate fi confiscată;", "b) poate fi confiscată potrivit legii;", "c) poate fi confiscată dacă este folosită irațional."],
-    correct: 0,
-    text_ru: "Согласно Конституции Республики Молдова, имущество, приобретённое законным путём:",
-    options_ru: ["a) не может быть конфисковано;", "b) может быть конфисковано в соответствии с законом;", "c) может быть конфисковано, если используется нерационально."],
-    hint: "Art. 46 alin. (1) din Constituție: averea dobândită licit nu poate fi confiscată.",
-    hint_ru: "Ст. 46 ч. (1) Конституции: имущество, приобретённое законным путём, не может быть конфисковано."
-},
-// Вопрос 82
-{
-    id: 82,
-    text: "Potrivit Constituției Republicii Moldova, perchezițiile și cercetările la fața locului pot fi ordonate și efectuate numai:",
-    options: ["a) în cazul săvârșirii unor infracțiuni;", "b) în condițiile legii;", "c) în baza unei hotărâri judecătorești."],
-    correct: 2,
-    text_ru: "Согласно Конституции Республики Молдова, обыски и осмотры на месте могут быть санкционированы и проведены только:",
-    options_ru: ["a) в случае совершения преступлений;", "b) в условиях, установленных законом;", "c) на основании судебного решения."],
-    hint: "Art. 25 alin. (4) din Constituție: perchezițiile se efectuează numai în baza unei hotărâri judecătorești.",
-    hint_ru: "Ст. 25 ч. (4) Конституции: обыски проводятся только на основании судебного решения."
-},
-// Вопрос 83
-{
-    id: 83,
-    text: "Modul de funcționare a limbilor pe teritoriul Republicii Moldova se stabilește prin:",
-    options: ["a) Constituția Republicii Moldova;", "b) Hotărârea Parlamentului Republicii Moldova;", "c) Lege organică."],
-    correct: 2,
-    text_ru: "Порядок функционирования языков на территории Республики Молдова устанавливается:",
-    options_ru: ["a) Конституцией Республики Молдова;", "b) Постановлением Парламента Республики Молдова;", "c) Органическим законом."],
-    hint: "Art. 13 alin. (2) din Constituție: modul de funcționare a limbilor se stabilește prin lege organică.",
-    hint_ru: "Ст. 13 ч. (2) Конституции: порядок функционирования языков устанавливается органическим законом."
-},
-// Вопрос 84
-{
-    id: 84,
-    text: "Care sunt factorii de bază ai economiei stabiliți în Constituția Republicii Moldova?",
-    options: ["a) economia de piață, proprietatea privată și concurența loială;", "b) statul inovațional și libera inițiativă economică;", "c) piața, libera inițiativă economică, concurența loială."],
-    correct: 0,
-    text_ru: "Каковы основные факторы экономики, установленные в Конституции Республики Молдова?",
-    options_ru: ["a) рыночная экономика, частная собственность и добросовестная конкуренция;", "b) инновационное государство и свобода экономической инициативы;", "c) рынок, свобода экономической инициативы, добросовестная конкуренция."],
-    hint: "Art. 126 din Constituție: economia se bazează pe economia de piață, proprietatea privată și concurența loială.",
-    hint_ru: "Ст. 126 Конституции: экономика основана на рыночной экономике, частной собственности и добросовестной конкуренции."
-},
-// Вопрос 85
-{
-    id: 85,
-    text: "Constituția Republicii Moldova declară drept obiectiv strategic:",
-    options: ["a) integrarea în Uniunea Europeană și spațiul euroatlantic;", "b) garantarea drepturilor omului;", "c) integrarea în Uniunea Europeană;", "d) statul de drept."],
-    correct: 2,
-    text_ru: "Конституция Республики Молдова объявляет стратегической целью:",
-    options_ru: ["a) интеграцию в Европейский Союз и евроатлантическое пространство;", "b) гарантирование прав человека;", "c) интеграцию в Европейский Союз;", "d) правовое государство."],
-    hint: "Art. 8 din Constituție (sau preambul): integrarea în Uniunea Europeană este obiectiv strategic.",
-    hint_ru: "Ст. 8 Конституции (или преамбула): интеграция в Европейский Союз является стратегической целью."
-},
-// Вопрос 86
-{
-    id: 86,
-    text: "Potrivit Constituției Republicii Moldova, îndatorirea primordială a statului constă în:",
-    options: ["a) respectarea Cartei Organizației Națiunilor Unite și tratatelor la care este parte;", "b) neutralitatea sa permanentă;", "c) respectarea și ocrotirea persoanei."],
-    correct: 2,
-    text_ru: "Согласно Конституции Республики Молдова, первоочередная обязанность государства состоит в:",
-    options_ru: ["a) соблюдении Устава Организации Объединённых Наций и договоров, участницей которых оно является;", "b) своём постоянном нейтралитете;", "c) уважении и защите личности."],
-    hint: "Art. 1 alin. (3) din Constituție: îndatorirea primordială a statului este respectarea și ocrotirea persoanei.",
-    hint_ru: "Ст. 1 ч. (3) Конституции: первоочередная обязанность государства – уважение и защита личности."
-},
-// Вопрос 87
-{
-    id: 87,
-    text: "Conform Constituției Republicii Moldova, cetățenii străini și apatrizii pot fi extrădați:",
-    options: ["a) în cazul nerespectării termenului de ședere;", "b) în baza unei convenții internaționale sau în temeiul hotărârii instanței de judecată;", "c) în cazul săvârșirii unor infracțiuni sau în temeiul hotărârii instanței de judecată."],
-    correct: 1,
-    text_ru: "Согласно Конституции Республики Молдова, иностранные граждане и лица без гражданства могут быть экстрадированы:",
-    options_ru: ["a) в случае нарушения срока проживания;", "b) на основании международной конвенции или по решению суда;", "c) в случае совершения преступлений или по решению суда."],
-    hint: "Art. 19 alin. (2) din Constituție: extrădarea se face în baza convențiilor internaționale sau a hotărârii judecătorești.",
-    hint_ru: "Ст. 19 ч. (2) Конституции: экстрадиция осуществляется на основании международных конвенций или судебного решения."
-},
-// Вопрос 88
-{
-    id: 88,
-    text: "În Republica Moldova, funcțiile publice ai căror titulari nu pot face parte din partide se stabilesc:",
-    options: ["a) prin hotărârea Curții Constituționale;", "b) prin lege organică;", "c) prin hotărârea Guvernului;", "d) prin lege constituțională."],
-    correct: 1,
-    text_ru: "В Республике Молдова публичные должности, обладатели которых не могут состоять в партиях, устанавливаются:",
-    options_ru: ["a) постановлением Конституционного суда;", "b) органическим законом;", "c) постановлением Правительства;", "d) конституционным законом."],
-    hint: "Art. 41 alin. (4) din Constituție: funcțiile publice incompatibile cu apartenența la partide se stabilesc prin lege organică.",
-    hint_ru: "Ст. 41 ч. (4) Конституции: публичные должности, несовместимые с членством в партиях, устанавливаются органическим законом."
-},
-// Вопрос 89
-{
-    id: 89,
-    text: "Organizarea și desfășurarea referendumului se reglementează:",
-    options: ["a) prin Constituția Republicii Moldova;", "b) prin lege ordinară;", "c) prin lege organică."],
-    correct: 2,
-    text_ru: "Организация и проведение референдума регулируются:",
-    options_ru: ["a) Конституцией Республики Молдова;", "b) обычным законом;", "c) органическим законом."],
-    hint: "Art. 75 din Constituție: referendumul se organizează în temeiul legii organice.",
-    hint_ru: "Ст. 75 Конституции: референдум организуется на основании органического закона."
-},
-// Вопрос 90
-{
-    id: 90,
-    text: "În Republica Moldova, pluralismul politic este incompatibil:",
-    options: ["a) cu regimul politic totalitar;", "b) cu regimul politic comunist;", "c) cu dictatura și cu totalitarismul."],
-    correct: 2,
-    text_ru: "В Республике Молдова политический плюрализм несовместим:",
-    options_ru: ["a) с тоталитарным политическим режимом;", "b) с коммунистическим политическим режимом;", "c) с диктатурой и тоталитаризмом."],
-    hint: "Art. 5 din Constituție: pluralismul politic este incompatibil cu dictatura și totalitarismul.",
-    hint_ru: "Ст. 5 Конституции: политический плюрализм несовместим с диктатурой и тоталитаризмом."
-},
-// Вопрос 91
-{
-    id: 91,
-    text: "Democrația în Republica Moldova se exercită în condițiile:",
-    options: ["a) pluripartismului de opinii;", "b) principiului majorității;", "c) disciplinii sociale;", "d) pluralismului politic."],
-    correct: 3,
-    text_ru: "Демократия в Республике Молдова осуществляется в условиях:",
-    options_ru: ["a) плюрализма мнений;", "b) принципа большинства;", "c) социальной дисциплины;", "d) политического плюрализма."],
-    hint: "Art. 5 din Constituție: democrația se exercită în condițiile pluralismului politic.",
-    hint_ru: "Ст. 5 Конституции: демократия осуществляется в условиях политического плюрализма."
-},
-// Вопрос 92
-{
-    id: 92,
-    text: "Potrivit Constituției, Republica Moldova este patria comună:",
-    options: ["a) a tuturor cetăţenilor săi;", "b) a cetățenilor Republicii Moldova și a cetățenilor străini;", "c) a persoanelor care au dobândit cetățenia Republicii Moldova prin naștere."],
-    correct: 0,
-    text_ru: "Согласно Конституции, Республика Молдова является общей родиной:",
-    options_ru: ["a) всех своих граждан;", "b) граждан Республики Молдова и иностранных граждан;", "c) лиц, приобретших гражданство Республики Молдова по рождению."],
-    hint: "Art. 10 alin. (1) din Constituție: Republica Moldova este patria comună a tuturor cetățenilor săi.",
-    hint_ru: "Ст. 10 ч. (1) Конституции: Республика Молдова является общей родиной всех своих граждан."
-},
-// Вопрос 93
-{
-    id: 93,
-    text: "Culorile Drapelului de Stat al Republicii Moldova sunt dispuse:",
-    options: ["a) vertical, în ordinea următoare, începând de la lance: albastru, galben, roșu;", "b) vertical, în ordinea următoare, începând de la lance: roșu, galben, albastru;", "c) vertical, în ordinea următoare, începând de la lance: galben, albastru, roșu."],
-    correct: 0,
-    text_ru: "Цвета Государственного флага Республики Молдова расположены:",
-    options_ru: ["a) вертикально, в следующем порядке, начиная от древка: синий, жёлтый, красный;", "b) вертикально, в следующем порядке, начиная от древка: красный, жёлтый, синий;", "c) вертикально, в следующем порядке, начиная от древка: жёлтый, синий, красный."],
-    hint: "Art. 12 alin. (3) din Constituție: culorile drapelului sunt albastru, galben, roșu, dispuse vertical.",
-    hint_ru: "Ст. 12 ч. (3) Конституции: цвета флага – синий, жёлтый, красный, расположены вертикально."
-},
-// Вопрос 94
-{
-    id: 94,
-    text: "Potrivit Constituției Republicii Moldova, statul facilitează studierea:",
-    options: ["a) limbii române pentru alolingvi;", "b) limbilor de circulație internațională;", "c) limbilor minorităților naționale."],
-    correct: 2,
-    text_ru: "Согласно Конституции Республики Молдова, государство способствует изучению:",
-    options_ru: ["a) румынского языка для иноязычных;", "b) языков международного общения;", "c) языков национальных меньшинств."],
-    hint: "Art. 13 alin. (3) din Constituție: statul facilitează studierea limbilor minorităților naționale.",
-    hint_ru: "Ст. 13 ч. (3) Конституции: государство способствует изучению языков национальных меньшинств."
-},
-// Вопрос 95
-{
-    id: 95,
-    text: "Cetățenii Republicii Moldova beneficiază de drepturile și de libertățile consacrate prin:",
-    options: ["a) Constituţie şi prin alte legi;", "b) Constituţie, prin legi și hotărâri ale Guvernului;", "c) Declarația Europeană a Drepturilor Omului;", "d) Declarația Universală a Drepturilor Omului și prin Constituție."],
-    correct: 0,
-    text_ru: "Граждане Республики Молдова пользуются правами и свободами, закреплёнными:",
-    options_ru: ["a) Конституцией и другими законами;", "b) Конституцией, законами и постановлениями Правительства;", "c) Европейской декларацией прав человека;", "d) Всеобщей декларацией прав человека и Конституцией."],
-    hint: "Art. 4 alin. (1) din Constituție: drepturile și libertățile sunt consacrate prin Constituție și prin legi.",
-    hint_ru: "Ст. 4 ч. (1) Конституции: права и свободы закреплены Конституцией и законами."
-},
-// Вопрос 96
-{
-    id: 96,
-    text: "Potrivit Constituției Republicii Moldova, eliberarea celui reținut sau arestat este obligatorie dacă:",
-    options: ["a) a fost introdusă cauțiunea;", "b) avocatul a contestat decizia instanței;", "c) motivele reţinerii sau arestării au dispărut;", "d) dacă acesta și-a recunoscut vina."],
-    correct: 2,
-    text_ru: "Согласно Конституции Республики Молдова, освобождение задержанного или арестованного обязательно, если:",
-    options_ru: ["a) был внесён залог;", "b) адвокат обжаловал решение суда;", "c) основания задержания или ареста отпали;", "d) если он признал свою вину."],
-    hint: "Art. 25 alin. (3) din Constituție: eliberarea este obligatorie dacă motivele reținerii au dispărut.",
-    hint_ru: "Ст. 25 ч. (3) Конституции: освобождение обязательно, если основания задержания отпали."
-},
-// Вопрос 97
-{
-    id: 97,
-    text: "Oricărui cetățean al Republicii Moldova îi este asigurat dreptul de a-şi stabili domiciliul sau reședința:",
-    options: ["a) în orice localitate din tara și din străinătate;", "b) în orice localitate din țară;", "c) în orice localitate din ţară și din statele cu care Republica Moldova are încheiate acorduri."],
-    correct: 1,
-    text_ru: "Каждому гражданину Республики Молдова гарантируется право на установление места жительства или временного проживания:",
-    options_ru: ["a) в любом населённом пункте страны и за рубежом;", "b) в любом населённом пункте страны;", "c) в любом населённом пункте страны и в государствах, с которыми Республика Молдова заключила соглашения."],
-    hint: "Art. 33 alin. (1) din Constituție: dreptul de a-și stabili domiciliul în orice localitate din țară.",
-    hint_ru: "Ст. 33 ч. (1) Конституции: право устанавливать место жительства в любом населённом пункте страны."
-},
-// Вопрос 98
-{
-    id: 98,
-    text: "În Republica Moldova percheziţiile în timpul nopţii sunt interzise, în afară de:",
-    options: ["a) cazul în care autoritățile sunt informate că în încăpere sunt minori;", "b) cazul unui delict flagrant;", "c) cazul în care nu există o hotărâre judecătorească."],
-    correct: 1,
-    text_ru: "В Республике Молдова обыски в ночное время запрещены, за исключением:",
-    options_ru: ["a) случая, когда власти информированы о том, что в помещении находятся несовершеннолетние;", "b) случая явного преступления;", "c) случая, когда нет судебного решения."],
-    hint: "Art. 25 alin. (4) din Constituție: perchezițiile în timpul nopții sunt interzise, cu excepția cazului unui delict flagrant.",
-    hint_ru: "Ст. 25 ч. (4) Конституции: обыски в ночное время запрещены, за исключением случая явного преступления."
-},
-// Вопрос 99
-{
-    id: 99,
-    text: "În Republica Moldova studierea limbii române se asigură:",
-    options: ["a) în instituţiile de învățământ de toate gradele;", "b) în instituțiile de învățământ general;", "c) în învățământul liceal."],
-    correct: 0,
-    text_ru: "В Республике Молдова изучение румынского языка обеспечивается:",
-    options_ru: ["a) в учебных заведениях всех уровней;", "b) в общеобразовательных учебных заведениях;", "c) в лицейском образовании."],
-    hint: "Art. 13 alin. (1) din Constituție: studierea limbii române se asigură în instituțiile de învățământ de toate gradele.",
-    hint_ru: "Ст. 13 ч. (1) Конституции: изучение румынского языка обеспечивается в учебных заведениях всех уровней."
-},
-// Вопрос 100
-{
-    id: 100,
-    text: "Potrivit Constituției, baza puterii de stat în Republica Moldova o constituie:",
-    options: ["a) voința poporului;", "b) voința cetățenilor;", "c) voința alegătorilor."],
-    correct: 0,
-    text_ru: "Согласно Конституции, основу государственной власти в Республике Молдова составляет:",
-    options_ru: ["a) воля народа;", "b) воля граждан;", "c) воля избирателей."],
-    hint: "Art. 2 alin. (1) din Constituție: baza puterii de stat o constituie voința poporului.",
-    hint_ru: "Ст. 2 ч. (1) Конституции: основу государственной власти составляет воля народа."
-},
-// Вопрос 101
-{
-    id: 101,
-    text: "În Republica Moldova,  accesul la o funcție publică se asigură:",
-    options: ["a) oricărei persoane care dispune de calificarea necesară;", "b) oricărei persoane care dispune de experiență în domeniul public;", "c) oricărui cetățean;", "d) oricărui cetățean care cunoaște limba română."],
-    correct: 2,
-    text_ru: "В Республике Молдова доступ к публичной должности обеспечивается:",
-    options_ru: ["a) любому лицу, обладающему необходимой квалификацией;", "b) любому лицу, имеющему опыт в публичной сфере;", "c) любому гражданину;", "d) любому гражданину, владеющему румынским языком."],
-    hint: "Art. 16 alin. (2) din Constituție: accesul la o funcție publică este asigurat oricărui cetățean.",
-    hint_ru: "Ст. 16 ч. (2) Конституции: доступ к публичной должности обеспечивается любому гражданину."
-},
-// Вопрос 102
-{
-    id: 102,
-    text: "Orice salariat are dreptul de a întemeia şi de a se afilia la sindicate pentru:",
-    options: ["a) apărarea intereselor sale;", "b) negocieri în materie de muncă;", "c) stabilirea regimului de muncă, instituirea unui salariu minim pe economie, repaosul săptămânal, concediul de odihnă plătit, prestarea muncii în condiţii grele, precum şi pentru alte scopuri specifice."],
-    correct: 0,
-    text_ru: "Любой работник имеет право создавать и вступать в профсоюзы для:",
-    options_ru: ["a) защиты своих интересов;", "b) переговоров по трудовым вопросам;", "c) установления режима труда, введения минимальной заработной платы, еженедельного отдыха, оплачиваемого отпуска, работы в тяжёлых условиях, а также для других конкретных целей."],
-    hint: "Art. 42 alin. (1) din Constituție: salariații au dreptul să întemeieze sindicate pentru apărarea intereselor lor.",
-    hint_ru: "Ст. 42 ч. (1) Конституции: работники имеют право создавать профсоюзы для защиты своих интересов."
-},
-// Вопрос 103
-{
-    id: 103,
-    text: "În Republica Moldova, o persoană poate fi supusă unui tratament medical forțat:",
-    options: ["a) în cazul în care persoana nu dispune de capacitate juridică;", "b) doar în cazurile prevăzute de lege;", "c) doar în cazul unei epidemii."],
-    correct: 1,
-    text_ru: "В Республике Молдова лицо может быть подвергнуто принудительному медицинскому лечению:",
-    options_ru: ["a) в случае, если лицо не обладает правоспособностью;", "b) только в случаях, предусмотренных законом;", "c) только в случае эпидемии."],
-    hint: "Art. 36 alin. (2) din Constituție: tratamentul medical forțat este permis numai în cazurile prevăzute de lege.",
-    hint_ru: "Ст. 36 ч. (2) Конституции: принудительное медицинское лечение допускается только в случаях, предусмотренных законом."
-},
-// Вопрос 104
-{
-    id: 104,
-    text: "Potrivit Constituției Republicii Moldova, pentru prejudiciile cauzate prin erorile săvârșite în procesele penale de către organele de anchetă şi instanțele judecătorești poartă răspundere:",
-    options: ["a) statul;", "b) persoanele care au cauzat prejudiciile respective;", "c) ofițerii de urmărire penală, procurorii și judecătorii care au cauzat prejudiciile respective."],
-    correct: 0,
-    text_ru: "Согласно Конституции Республики Молдова, за вред, причинённый ошибками, допущенными в уголовных процессах органами следствия и судебными инстанциями, несёт ответственность:",
-    options_ru: ["a) государство;", "b) лица, причинившие соответствующий вред;", "c) следователи, прокуроры и судьи, причинившие соответствующий вред."],
-    hint: "Art. 53 din Constituție: statul răspunde pentru prejudiciile cauzate de erorile în procesele penale.",
-    hint_ru: "Ст. 53 Конституции: государство отвечает за вред, причинённый ошибками в уголовных процессах."
-},
-// Вопрос 105
-{
-    id: 105,
-    text: "În Republica Moldova, apărarea Patriei este:",
-    options: ["a) un drept şi o datorie sfântă a fiecărui cetățean;", "b) un drept şi o datorie sfântă a membrilor Forțelor Armate;", "c) un drept și o datorie sfântă a fiecărei persoane cu domiciliu legal pe teritoriul Republicii Moldova."],
-    correct: 0,
-    text_ru: "В Республике Молдова защита Родины является:",
-    options_ru: ["a) правом и священной обязанностью каждого гражданина;", "b) правом и священной обязанностью членов Вооружённых сил;", "c) правом и священной обязанностью каждого лица, имеющего законное место жительства на территории Республики Молдова."],
-    hint: "Art. 57 din Constituție: apărarea Patriei este un drept și o datorie sfântă a fiecărui cetățean.",
-    hint_ru: "Ст. 57 Конституции: защита Родины является правом и священной обязанностью каждого гражданина."
-},
-// Вопрос 106
-{
-    id: 106,
-    text: "Potrivit Constituției Republicii Moldova, în exercitarea mandatului, deputații:",
-    options: ["a) reprezintă interesele alegătorilor;", "b) sunt în serviciul poporului;", "c) sunt în serviciul statului;", "d) sunt în serviciul cetățenilor."],
-    correct: 1,
-    text_ru: "Согласно Конституции Республики Молдова, при осуществлении мандата депутаты:",
-    options_ru: ["a) представляют интересы избирателей;", "b) находятся на службе народа;", "c) находятся на службе государства;", "d) находятся на службе граждан."],
-    hint: "Art. 68 alin. (1) din Constituție: deputații sunt în serviciul poporului.",
-    hint_ru: "Ст. 68 ч. (1) Конституции: депутаты находятся на службе народа."
-},
-// Вопрос 107
-{
-    id: 107,
-    text: "În Republica Moldova, orice deputat nu poate fi persecutat sau tras la răspundere juridică:",
-    options: ["a) pentru voturile sau pentru opiniile exprimate în exercitarea mandatului;", "b) pentru participarea la acțiunile de protest;", "c) pentru boicotarea ședințelor Parlamentului."],
-    correct: 0,
-    text_ru: "В Республике Молдова любой депутат не может быть преследуем или привлечён к юридической ответственности:",
-    options_ru: ["a) за голоса или мнения, выраженные при осуществлении мандата;", "b) за участие в протестных акциях;", "c) за бойкот заседаний Парламента."],
-    hint: "Art. 70 alin. (1) din Constituție: deputații nu pot fi persecutați pentru voturile sau opiniile exprimate în exercitarea mandatului.",
-    hint_ru: "Ст. 70 ч. (1) Конституции: депутаты не могут быть преследуемы за голоса или мнения, выраженные при осуществлении мандата."
-},
-// Вопрос 108
-{
-    id: 108,
-    text: "Comandantul suprem al Forţelor Armate din Republica Moldova este:",
-    options: ["a) Ministrul apărării;", "b) Șeful Marelui Stat Major;", "c) Preşedintele Republicii Moldova."],
-    correct: 2,
-    text_ru: "Верховным главнокомандующим Вооружёнными силами Республики Молдова является:",
-    options_ru: ["a) Министр обороны;", "b) Начальник Генерального штаба;", "c) Президент Республики Молдова."],
-    hint: "Art. 87 lit. a) din Constituție: Președintele este comandantul suprem al forțelor armate.",
-    hint_ru: "Ст. 87 п. a) Конституции: Президент является верховным главнокомандующим вооружёнными силами."
-},
-// Вопрос 109
-{
-    id: 109,
-    text: "Prim-ministrul Republicii Moldova emite dispoziții pentru:",
-    options: ["a) organizarea activităţii interne a Guvernului;", "b) angajarea și eliberarea din funcție a miniștrilor;", "c) convocarea ședințelor Guvernului;", "d) pentru declararea stării de urgență."],
-    correct: 0,
-    text_ru: "Премьер-министр Республики Молдова издаёт распоряжения для:",
-    options_ru: ["a) организации внутренней деятельности Правительства;", "b) назначения и освобождения от должности министров;", "c) созыва заседаний Правительства;", "d) объявления чрезвычайного положения."],
-    hint: "Art. 100 din Constituție: Prim-ministrul emite dispoziții pentru organizarea activității interne a Guvernului.",
-    hint_ru: "Ст. 100 Конституции: Премьер-министр издаёт распоряжения для организации внутренней деятельности Правительства."
-},
-// Вопрос 110
-{
-    id: 110,
-    text: "Consiliul Superior al Magistraturii este:",
-    options: ["a) autoritatea judecătorească supremă;", "b) organul de autoadministrare a sistemului judecătoresc;", "c) garantul independenței autorității judecătorești;", "d) garantul inviolabilității judecătorilor."],
-    correct: 1,
-    text_ru: "Высший совет магистратуры является:",
-    options_ru: ["a) верховным судебным органом;", "b) органом самоуправления судебной системы;", "c) гарантом независимости судебной власти;", "d) гарантом неприкосновенности судей."],
-    hint: "Art. 116 din Constituție: Consiliul Superior al Magistraturii este organul de autoadministrare a sistemului judecătoresc.",
-    hint_ru: "Ст. 116 Конституции: Высший совет магистратуры является органом самоуправления судебной системы."
-}
-];
-
-// ==================================================================
-// ЛОГИКА ПРИЛОЖЕНИЯ (исправлена кнопка Acasă)
+// ЛОГИКА ПРИЛОЖЕНИЯ (с очисткой текста опций)
 // ==================================================================
 const app = {
     mode: 'tickets',
@@ -1401,8 +1394,17 @@ const app = {
     showRussian: false,
     autoTimer: null,
     isResuming: false,
+    ticketStats: {},
+
+    // Очистка опции: удаляем префикс и конечные знаки препинания
+    cleanOption(text) {
+        let cleaned = text.replace(/^[a-z]\)\s*/, '');
+        cleaned = cleaned.replace(/[.;:,]\s*$/, '').trim();
+        return cleaned;
+    },
 
     init() {
+        this.loadTicketStats();
         this.buildTickets();
         this.renderTicketButtons();
         this.bindEvents();
@@ -1420,29 +1422,71 @@ const app = {
         this.checkSavedProgress();
     },
 
+    loadTicketStats() {
+        try {
+            const saved = localStorage.getItem('ticketStats');
+            if (saved) this.ticketStats = JSON.parse(saved);
+        } catch (e) {}
+    },
+
+    saveTicketStats() {
+        try {
+            localStorage.setItem('ticketStats', JSON.stringify(this.ticketStats));
+        } catch (e) {}
+    },
+
     buildTickets() {
-        const sizes = [20,20,20,20,20,10];
-        let start = 0;
-        for (let i=0; i<sizes.length; i++) {
-            const qs = questionsWithRu.slice(start, start + sizes[i]);
+        this.tickets = [];
+        const size = 10;
+        for (let i = 0; i < 11; i++) {
+            const start = i * size;
+            const end = start + size;
+            const qs = questionsWithRu.slice(start, end);
             this.tickets.push({ id: i+1, questions: qs });
-            start += sizes[i];
         }
     },
 
     setMode(mode) {
+        if (this.mode === mode && mode === 'tickets') {
+            document.getElementById('ticketSelector').style.display = 'block';
+            document.getElementById('testArea').classList.remove('active');
+            document.getElementById('resultArea').classList.remove('active');
+            this.renderTicketButtons();
+            this.updateProgressStatus();
+            return;
+        }
+        if (this.mode === mode && mode !== 'tickets') return;
+
+        if (this.currentQuestions.length > 0) this.cleanupTest();
+
         this.mode = mode;
-        document.getElementById('modeLabel').textContent = (mode === 'tickets') ? 'Bilete' : 'Marafon';
+        document.getElementById('modeLabel').textContent = (mode === 'tickets') ? 'Bilete' : (mode === 'marathon' ? 'Marafon' : 'Aleatoriu');
         document.getElementById('modeTickets').classList.toggle('active', mode === 'tickets');
         document.getElementById('modeMarathon').classList.toggle('active', mode === 'marathon');
-        document.getElementById('ticketSelector').style.display = 'none';
+        document.getElementById('modeRandom').classList.toggle('active', mode === 'random');
+
+        document.getElementById('ticketSelector').style.display = (mode === 'tickets') ? 'block' : 'none';
         document.getElementById('testArea').classList.remove('active');
         document.getElementById('resultArea').classList.remove('active');
+
         if (mode === 'tickets') {
-            document.getElementById('ticketSelector').style.display = 'block';
-        } else {
+            this.renderTicketButtons();
+            this.updateProgressStatus();
+        } else if (mode === 'marathon') {
             this.startMarathon();
+        } else if (mode === 'random') {
+            this.startRandom();
         }
+    },
+
+    cleanupTest() {
+        this.currentQuestions = [];
+        this.shuffledOptions = [];
+        this.answers = [];
+        this.currentIndex = 0;
+        if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+        this.clearProgress();
+        this.updateProgressStatus();
     },
 
     renderTicketButtons() {
@@ -1450,7 +1494,18 @@ const app = {
         container.innerHTML = '';
         this.tickets.forEach((t, idx) => {
             const btn = document.createElement('button');
-            btn.textContent = `Biletul ${t.id} (${t.questions.length} întrebări)`;
+            btn.textContent = `Biletul ${t.id}`;
+            const stats = this.ticketStats[t.id];
+            if (stats) {
+                const percent = Math.round((stats.correct / stats.total) * 100);
+                if (stats.correct === stats.total) {
+                    btn.classList.add('completed-green');
+                    btn.textContent += ` ✅ 100%`;
+                } else {
+                    btn.classList.add('completed-yellow');
+                    btn.textContent += ` 🟡 ${percent}%`;
+                }
+            }
             btn.dataset.index = idx;
             btn.addEventListener('click', () => {
                 this.startTicket(idx);
@@ -1472,9 +1527,16 @@ const app = {
             const newCorrect = opts.indexOf(correctText);
             return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
         });
-        this.answers = shuffledQs.map(() => ({ selected: -1, isCorrect: false, wasIncorrect: false, showHint: false }));
+        this.answers = shuffledQs.map(() => ({ 
+            selected: -1, 
+            isCorrect: false, 
+            wasIncorrect: false, 
+            showHint: false, 
+            firstWrongSelected: -1,
+            incorrectIndices: []
+        }));
         this.currentIndex = 0;
-        this.showTest('ticket');
+        this.showTest();
         this.saveProgress();
     },
 
@@ -1487,59 +1549,49 @@ const app = {
             const newCorrect = opts.indexOf(correctText);
             return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
         });
-        this.answers = shuffledQs.map(() => ({ selected: -1, isCorrect: false, wasIncorrect: false, showHint: false }));
+        this.answers = shuffledQs.map(() => ({ 
+            selected: -1, 
+            isCorrect: false, 
+            wasIncorrect: false, 
+            showHint: false, 
+            firstWrongSelected: -1,
+            incorrectIndices: []
+        }));
         this.currentIndex = 0;
-        this.showTest('marathon');
+        this.showTest();
         this.saveProgress();
     },
 
-    showTest(type) {
+    startRandom() {
+        const shuffledAll = this.shuffleArray([...questionsWithRu]);
+        const selected = shuffledAll.slice(0, 10);
+        this.currentQuestions = selected;
+        this.shuffledOptions = selected.map(q => {
+            const opts = this.shuffleArray([...q.options]);
+            const correctText = q.options[q.correct];
+            const newCorrect = opts.indexOf(correctText);
+            return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
+        });
+        this.answers = selected.map(() => ({ 
+            selected: -1, 
+            isCorrect: false, 
+            wasIncorrect: false, 
+            showHint: false, 
+            firstWrongSelected: -1,
+            incorrectIndices: []
+        }));
+        this.currentIndex = 0;
+        this.showTest();
+        this.saveProgress();
+    },
+
+    showTest() {
         document.getElementById('ticketSelector').style.display = 'none';
         document.getElementById('testArea').classList.add('active');
         document.getElementById('resultArea').classList.remove('active');
         this.renderNav();
         this.renderQuestion();
-        const backBtn = document.getElementById('backToStart');
-        if (type === 'ticket') {
-            backBtn.style.display = 'inline-block';
-            backBtn.onclick = () => {
-                document.getElementById('testArea').classList.remove('active');
-                document.getElementById('ticketSelector').style.display = 'block';
-                this.saveProgress();
-            };
-        } else {
-            backBtn.style.display = 'none';
-        }
-        document.getElementById('finishTestBtn').onclick = () => this.finishTest();
-        document.getElementById('retryTop').onclick = () => {
-            this.retryTest();
-            this.saveProgress();
-        };
-        document.getElementById('homeTop').onclick = () => this.goHome();
-    },
-
-    retryTest() {
-        if (this.mode === 'tickets' && this.currentTicketIndex !== null) {
-            this.startTicket(this.currentTicketIndex);
-        } else {
-            this.startMarathon();
-        }
-    },
-
-    // ========== ИСПРАВЛЕННАЯ ФУНКЦИЯ goHome ==========
-    goHome() {
-        // Просто выходим без подтверждения, сбрасываем прогресс
-        document.getElementById('testArea').classList.remove('active');
-        document.getElementById('resultArea').classList.remove('active');
-        document.getElementById('ticketSelector').style.display = 'block';
-        this.currentQuestions = [];
-        this.shuffledOptions = [];
-        this.answers = [];
-        this.currentIndex = 0;
-        if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
-        this.setMode('tickets');
-        this.clearProgress();
-        this.updateProgressStatus();
+        this.updateNavButtons();
     },
 
     renderNav() {
@@ -1553,11 +1605,8 @@ const app = {
             const state = this.answers[i];
             if (i === this.currentIndex) btn.classList.add('current');
             if (state.selected !== -1) {
-                if (state.wasIncorrect) {
-                    btn.classList.add('answered-incorrect');
-                } else if (state.isCorrect) {
-                    btn.classList.add('answered-correct');
-                }
+                if (state.wasIncorrect) btn.classList.add('answered-incorrect');
+                else if (state.isCorrect) btn.classList.add('answered-correct');
             }
             btn.dataset.index = i;
             btn.addEventListener('click', () => {
@@ -1565,6 +1614,7 @@ const app = {
                 if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
                 this.renderNav();
                 this.renderQuestion();
+                this.updateNavButtons();
                 this.saveProgress();
             });
             panel.appendChild(btn);
@@ -1590,12 +1640,18 @@ const app = {
         opts.forEach((opt, i) => {
             const div = document.createElement('div');
             div.className = 'option';
-            const cleanOpt = opt.replace(/^[a-z]\)\s*/, '');
-            const cleanOptRu = (optsRu[i] || '').replace(/^[a-z]\)\s*/, '');
+            // Очищаем текст опции
+            const cleanOpt = this.cleanOption(opt);
+            const cleanOptRu = this.cleanOption(optsRu[i] || '');
 
-            if (state.selected === i) {
-                if (state.isCorrect) div.classList.add('correct');
-                else if (state.selected !== -1) div.classList.add('incorrect');
+            if (state.incorrectIndices.includes(i)) {
+                div.classList.add('incorrect');
+            }
+            if (state.selected === i && state.isCorrect) {
+                div.classList.add('correct');
+            }
+            if (state.selected === i && !state.isCorrect && !state.incorrectIndices.includes(i)) {
+                div.classList.add('incorrect');
             }
 
             const num = i+1;
@@ -1609,14 +1665,25 @@ const app = {
             div.appendChild(content);
 
             div.addEventListener('click', (e) => {
-                if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
                 const currentIdx = this.currentIndex;
                 const currentState = this.answers[currentIdx];
                 if (currentState.isCorrect) return;
-                if (currentState.selected === i && !currentState.isCorrect) return;
+
+                if (this.autoTimer) {
+                    clearTimeout(this.autoTimer);
+                    this.autoTimer = null;
+                }
+
+                if (currentState.selected === i) return;
 
                 const isCorrect = (i === correctIdx);
                 if (!isCorrect) {
+                    if (!currentState.incorrectIndices.includes(i)) {
+                        currentState.incorrectIndices.push(i);
+                    }
+                    if (currentState.firstWrongSelected === -1) {
+                        currentState.firstWrongSelected = i;
+                    }
                     currentState.wasIncorrect = true;
                     currentState.isCorrect = false;
                     currentState.showHint = true;
@@ -1628,17 +1695,24 @@ const app = {
 
                 this.renderNav();
                 this.renderQuestion();
+                this.updateNavButtons();
                 this.saveProgress();
 
                 if (isCorrect) {
-                    if (this.currentIndex < this.currentQuestions.length - 1) {
-                        this.autoTimer = setTimeout(() => {
-                            this.currentIndex++;
-                            if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
-                            this.renderNav();
-                            this.renderQuestion();
-                            this.saveProgress();
-                        }, 1000);
+                    const allAnswered = this.answers.every(a => a.selected !== -1);
+                    if (allAnswered) {
+                        this.finishTest();
+                    } else {
+                        if (this.currentIndex < this.currentQuestions.length - 1) {
+                            this.autoTimer = setTimeout(() => {
+                                this.currentIndex++;
+                                if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+                                this.renderNav();
+                                this.renderQuestion();
+                                this.updateNavButtons();
+                                this.saveProgress();
+                            }, 500);
+                        }
                     }
                 }
             });
@@ -1661,15 +1735,31 @@ const app = {
         }
 
         this.renderNav();
+        this.updateNavButtons();
         this.saveProgress();
     },
 
+    updateNavButtons() {
+        const total = this.currentQuestions.length;
+        document.getElementById('prevQuestionBtn').disabled = (this.currentIndex === 0);
+        document.getElementById('nextQuestionBtn').disabled = (this.currentIndex === total - 1);
+    },
+
     finishTest() {
-        const unanswered = this.answers.some(a => a.selected === -1);
-        if (unanswered) {
-            if (!confirm('Mai sunt întrebări fără răspuns. Doriți să finalizați oricum?')) return;
-        }
         if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+        if (this.mode === 'tickets' && this.currentTicketIndex !== null) {
+            const ticketId = this.tickets[this.currentTicketIndex].id;
+            let correctFirst = 0;
+            for (const ans of this.answers) {
+                if (ans.isCorrect && !ans.wasIncorrect) correctFirst++;
+            }
+            this.ticketStats[ticketId] = {
+                total: this.answers.length,
+                correct: correctFirst
+            };
+            this.saveTicketStats();
+            this.renderTicketButtons();
+        }
         this.showResults();
         this.clearProgress();
         this.updateProgressStatus();
@@ -1691,20 +1781,29 @@ const app = {
             const correctIdx = this.shuffledOptions[i].correct;
             const state = this.answers[i];
             const userAns = state.selected;
-            let isCorrect = state.isCorrect;
+            let isCorrect = (state.isCorrect && !state.wasIncorrect);
             if (correctIdx === -1) {
                 isCorrect = null;
                 unknownCount++;
             } else if (isCorrect) {
                 correctCount++;
             }
+            let displayAnswer = userAns;
+            if (state.wasIncorrect && state.firstWrongSelected !== -1) {
+                displayAnswer = state.firstWrongSelected;
+            }
+            const cleanUserAnswer = displayAnswer !== -1 ? this.cleanOption(opts[displayAnswer]) : 'Neselctat';
+            const cleanUserAnswerRu = (displayAnswer !== -1 && optsRu[displayAnswer]) ? this.cleanOption(optsRu[displayAnswer]) : '';
+            const cleanCorrectAnswer = correctIdx !== -1 ? this.cleanOption(opts[correctIdx]) : 'Necunoscut';
+            const cleanCorrectAnswerRu = (correctIdx !== -1 && optsRu[correctIdx]) ? this.cleanOption(optsRu[correctIdx]) : '';
+
             items.push({
                 question: q.text,
                 question_ru: q.text_ru || '',
-                userAnswer: userAns !== -1 ? opts[userAns] : 'Neselctat',
-                userAnswer_ru: (userAns !== -1 && optsRu[userAns]) ? optsRu[userAns] : '',
-                correctAnswer: correctIdx !== -1 ? opts[correctIdx] : 'Necunoscut',
-                correctAnswer_ru: (correctIdx !== -1 && optsRu[correctIdx]) ? optsRu[correctIdx] : '',
+                userAnswer: cleanUserAnswer,
+                userAnswer_ru: cleanUserAnswerRu,
+                correctAnswer: cleanCorrectAnswer,
+                correctAnswer_ru: cleanCorrectAnswerRu,
                 isCorrect: isCorrect
             });
         }
@@ -1737,12 +1836,10 @@ const app = {
             if (this.showRussian && item.question_ru) {
                 qHtml += `<div class="ru">${item.question_ru}</div>`;
             }
-
             let userHtml = `Răspunsul dvs.: ${item.userAnswer}`;
             if (this.showRussian && item.userAnswer_ru) {
                 userHtml += `<div class="ru">${item.userAnswer_ru}</div>`;
             }
-
             let correctHtml = `Răspuns corect: ${item.correctAnswer}`;
             if (this.showRussian && item.correctAnswer_ru) {
                 correctHtml += `<div class="ru">${item.correctAnswer_ru}</div>`;
@@ -1757,12 +1854,23 @@ const app = {
             listDiv.appendChild(div);
         });
 
-        document.getElementById('retryResultTop').onclick = () => this.retryTest();
-        document.getElementById('homeResultTop').onclick = () => this.goHome();
         document.getElementById('retrySame').onclick = () => this.retryTest();
         document.getElementById('goHome').onclick = () => this.goHome();
-        this.clearProgress();
-        this.updateProgressStatus();
+    },
+
+    retryTest() {
+        if (this.mode === 'tickets' && this.currentTicketIndex !== null) {
+            this.startTicket(this.currentTicketIndex);
+        } else if (this.mode === 'marathon') {
+            this.startMarathon();
+        } else if (this.mode === 'random') {
+            this.startRandom();
+        }
+    },
+
+    goHome() {
+        this.cleanupTest();
+        this.setMode('tickets');
     },
 
     shuffleArray(arr) {
@@ -1773,7 +1881,6 @@ const app = {
         return arr;
     },
 
-    // ===================== СОХРАНЕНИЕ ПРОГРЕССА =====================
     saveProgress() {
         if (this.currentQuestions.length === 0 || this.isResuming) return;
         const data = {
@@ -1788,29 +1895,21 @@ const app = {
         try {
             localStorage.setItem('testProgress', JSON.stringify(data));
             this.updateProgressStatus('saved');
-        } catch (e) {
-            console.warn('Could not save progress', e);
-        }
+        } catch (e) {}
     },
 
     loadProgress() {
         try {
             const raw = localStorage.getItem('testProgress');
-            if (!raw) return null;
-            return JSON.parse(raw);
-        } catch (e) {
-            console.warn('Could not load progress', e);
-            return null;
-        }
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
     },
 
     clearProgress() {
         try {
             localStorage.removeItem('testProgress');
             this.updateProgressStatus('cleared');
-        } catch (e) {
-            console.warn('Could not clear progress', e);
-        }
+        } catch (e) {}
     },
 
     checkSavedProgress() {
@@ -1834,7 +1933,7 @@ const app = {
                 this.currentIndex = data.currentIndex;
                 this.showRussian = data.showRussian || false;
                 document.getElementById('langToggle').classList.toggle('active', this.showRussian);
-                this.showTest(this.mode === 'tickets' ? 'ticket' : 'marathon');
+                this.showTest();
                 container.innerHTML = '';
                 this.isResuming = false;
                 this.updateProgressStatus('restored');
@@ -1865,25 +1964,15 @@ const app = {
 
     bindEvents() {
         document.getElementById('modeTickets').addEventListener('click', () => {
-            if (this.mode !== 'tickets') {
-                if (this.currentQuestions.length > 0 && this.answers.some(a => a.selected !== -1)) {
-                    if (!confirm('Schimbarea modului va pierde progresul curent. Continuați?')) return;
-                }
-                this.setMode('tickets');
-                this.clearProgress();
-                this.updateProgressStatus();
-            }
+            this.setMode('tickets');
         });
         document.getElementById('modeMarathon').addEventListener('click', () => {
-            if (this.mode !== 'marathon') {
-                if (this.currentQuestions.length > 0 && this.answers.some(a => a.selected !== -1)) {
-                    if (!confirm('Schimbarea modului va pierde progresul curent. Continuați?')) return;
-                }
-                this.setMode('marathon');
-                this.clearProgress();
-                this.updateProgressStatus();
-            }
+            this.setMode('marathon');
         });
+        document.getElementById('modeRandom').addEventListener('click', () => {
+            this.setMode('random');
+        });
+
         document.getElementById('clearProgressBtn').addEventListener('click', () => {
             if (confirm('Sigur doriți să ștergeți progresul salvat?')) {
                 this.clearProgress();
@@ -1891,6 +1980,27 @@ const app = {
                 if (document.getElementById('testArea').classList.contains('active')) {
                     this.goHome();
                 }
+            }
+        });
+
+        document.getElementById('prevQuestionBtn').addEventListener('click', () => {
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+                if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+                this.renderNav();
+                this.renderQuestion();
+                this.updateNavButtons();
+                this.saveProgress();
+            }
+        });
+        document.getElementById('nextQuestionBtn').addEventListener('click', () => {
+            if (this.currentIndex < this.currentQuestions.length - 1) {
+                this.currentIndex++;
+                if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+                this.renderNav();
+                this.renderQuestion();
+                this.updateNavButtons();
+                this.saveProgress();
             }
         });
     }
