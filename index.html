@@ -163,6 +163,20 @@ function cleanOption(text) {
 }
 
 // ==================================================================
+// ПРОВЕРКА ДОСТУПНОСТИ LOCALSTORAGE
+// ==================================================================
+function isLocalStorageAvailable() {
+    try {
+        const testKey = '__test__';
+        localStorage.setItem(testKey, 'test');
+        localStorage.removeItem(testKey);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// ==================================================================
 // ПОЛНЫЙ МАССИВ ИЗ 110 ВОПРОСОВ (с переводами и подсказками)
 // ==================================================================
 const questionsWithRu = [
@@ -1379,7 +1393,7 @@ const questionsWithRu = [
 ];
 
 // ==================================================================
-// ЛОГИКА ПРИЛОЖЕНИЯ
+// ЛОГИКА ПРИЛОЖЕНИЯ (с улучшенным сохранением для iOS)
 // ==================================================================
 const app = {
     mode: 'tickets',
@@ -1393,6 +1407,7 @@ const app = {
     autoTimer: null,
     isResuming: false,
     ticketStats: {},
+    completedTickets: new Set(),
 
     cleanOption(text) {
         let cleaned = text.replace(/^[a-z]\)\s*/, '');
@@ -1420,17 +1435,29 @@ const app = {
         this.checkSavedProgress();
     },
 
+    isLocalStorageAvailable() {
+        try {
+            const testKey = '__test__';
+            localStorage.setItem(testKey, 'test');
+            localStorage.removeItem(testKey);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
     loadTicketStats() {
         try {
             const saved = localStorage.getItem('ticketStats');
             if (saved) this.ticketStats = JSON.parse(saved);
-        } catch (e) {}
+        } catch (e) { console.warn('loadTicketStats error', e); }
     },
 
     saveTicketStats() {
         try {
+            if (!this.isLocalStorageAvailable()) return;
             localStorage.setItem('ticketStats', JSON.stringify(this.ticketStats));
-        } catch (e) {}
+        } catch (e) { console.warn('saveTicketStats error', e); }
     },
 
     loadCompletedTickets() {
@@ -1443,8 +1470,9 @@ const app = {
 
     saveCompletedTickets() {
         try {
+            if (!this.isLocalStorageAvailable()) return;
             localStorage.setItem('completedTickets', JSON.stringify([...this.completedTickets]));
-        } catch (e) {}
+        } catch (e) { console.warn('saveCompletedTickets error', e); }
     },
 
     buildTickets() {
@@ -1769,7 +1797,6 @@ const app = {
                 correct: correctFirst
             };
             this.saveTicketStats();
-            // Отмечаем билет как пройденный (для возможности повторного прохождения)
             this.completedTickets.add(ticketId);
             this.saveCompletedTickets();
             this.renderTicketButtons();
@@ -1895,9 +1922,46 @@ const app = {
         return arr;
     },
 
-    // ====== ОБНОВЛЁННАЯ ОЧИСТКА ВСЕХ ДАННЫХ ======
+    // ====== ОБНОВЛЁННОЕ СОХРАНЕНИЕ С ОБРАБОТКОЙ ОШИБОК ======
+    saveProgress() {
+        if (this.currentQuestions.length === 0 || this.isResuming) return;
+        if (!this.isLocalStorageAvailable()) {
+            console.warn('localStorage не доступен (возможно, приватный режим Safari)');
+            this.updateProgressStatus('error');
+            return;
+        }
+        try {
+            const data = {
+                mode: this.mode,
+                currentTicketIndex: this.currentTicketIndex,
+                currentQuestions: this.currentQuestions,
+                shuffledOptions: this.shuffledOptions,
+                answers: this.answers,
+                currentIndex: this.currentIndex,
+                showRussian: this.showRussian
+            };
+            localStorage.setItem('testProgress', JSON.stringify(data));
+            this.updateProgressStatus('saved');
+        } catch (e) {
+            console.error('Ошибка сохранения прогресса:', e);
+            this.updateProgressStatus('error');
+        }
+    },
+
+    loadProgress() {
+        try {
+            if (!this.isLocalStorageAvailable()) return null;
+            const raw = localStorage.getItem('testProgress');
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+            console.warn('Ошибка загрузки прогресса:', e);
+            return null;
+        }
+    },
+
     clearProgress() {
         try {
+            if (!this.isLocalStorageAvailable()) return;
             localStorage.removeItem('testProgress');
             localStorage.removeItem('ticketStats');
             localStorage.removeItem('completedTickets');
@@ -1905,31 +1969,9 @@ const app = {
             this.completedTickets = new Set();
             this.renderTicketButtons();
             this.updateProgressStatus('cleared');
-        } catch (e) {}
-    },
-
-    saveProgress() {
-        if (this.currentQuestions.length === 0 || this.isResuming) return;
-        const data = {
-            mode: this.mode,
-            currentTicketIndex: this.currentTicketIndex,
-            currentQuestions: this.currentQuestions,
-            shuffledOptions: this.shuffledOptions,
-            answers: this.answers,
-            currentIndex: this.currentIndex,
-            showRussian: this.showRussian
-        };
-        try {
-            localStorage.setItem('testProgress', JSON.stringify(data));
-            this.updateProgressStatus('saved');
-        } catch (e) {}
-    },
-
-    loadProgress() {
-        try {
-            const raw = localStorage.getItem('testProgress');
-            return raw ? JSON.parse(raw) : null;
-        } catch (e) { return null; }
+        } catch (e) {
+            console.warn('Ошибка очистки прогресса:', e);
+        }
     },
 
     checkSavedProgress() {
@@ -1979,6 +2021,9 @@ const app = {
         } else if (status === 'restored') {
             statusDiv.textContent = '✅ Progres restaurat. Continuați testul.';
             statusDiv.style.color = '#28a745';
+        } else if (status === 'error') {
+            statusDiv.textContent = '⚠️ Eroare la salvare. Verificați setările browserului.';
+            statusDiv.style.color = '#dc3545';
         }
     },
 
