@@ -1076,7 +1076,7 @@ const questionsWithRu = [
         id: 82,
         text: "Potrivit Constituției Republicii Moldova, perchezițiile și cercetările la fața locului pot fi ordonate și efectuate numai:",
         options: ["a) în cazul săvârșirii unor infracțiuni;", "b) în condițiile legii;", "c) în baza unei hotărâri judecătorești."],
-        correct: 2,
+        correct: 3,
         text_ru: "Согласно Конституции Республики Молдова, обыски и осмотры на месте могут быть санкционированы и проведены только:",
         options_ru: ["a) в случае совершения преступлений;", "b) в условиях, установленных законом;", "c) на основании судебного решения."],
         hint: "Art. 25 alin. (4) din Constituție: perchezițiile se efectuează numai în baza unei hotărâri judecătorești.",
@@ -1393,7 +1393,7 @@ const questionsWithRu = [
 ];
 
 // ==================================================================
-// ЛОГИКА ПРИЛОЖЕНИЯ (с улучшенным сохранением для iOS)
+// ЛОГИКА ПРИЛОЖЕНИЯ (с исправленным отображением прогресса билетов)
 // ==================================================================
 const app = {
     mode: 'tickets',
@@ -1441,15 +1441,27 @@ const app = {
             localStorage.setItem(testKey, 'test');
             localStorage.removeItem(testKey);
             return true;
-        } catch (e) {
-            return false;
-        }
+        } catch (e) { return false; }
     },
 
     loadTicketStats() {
         try {
             const saved = localStorage.getItem('ticketStats');
-            if (saved) this.ticketStats = JSON.parse(saved);
+            if (saved) {
+                this.ticketStats = JSON.parse(saved);
+                // Убедимся, что для всех билетов есть запись
+                for (let i = 1; i <= 11; i++) {
+                    if (!this.ticketStats[i]) {
+                        this.ticketStats[i] = { total: 10, correct: 0 };
+                    }
+                }
+            } else {
+                // Инициализируем пустую статистику для всех билетов
+                this.ticketStats = {};
+                for (let i = 1; i <= 11; i++) {
+                    this.ticketStats[i] = { total: 10, correct: 0 };
+                }
+            }
         } catch (e) { console.warn('loadTicketStats error', e); }
     },
 
@@ -1536,12 +1548,12 @@ const app = {
             const btn = document.createElement('button');
             btn.textContent = `Biletul ${t.id}`;
             const stats = this.ticketStats[t.id];
-            if (stats) {
+            if (stats && stats.total > 0) {
                 const percent = Math.round((stats.correct / stats.total) * 100);
                 if (stats.correct === stats.total) {
                     btn.classList.add('completed-green');
                     btn.textContent += ` ✅ 100%`;
-                } else {
+                } else if (stats.correct > 0) {
                     btn.classList.add('completed-yellow');
                     btn.textContent += ` 🟡 ${percent}%`;
                 }
@@ -1792,13 +1804,17 @@ const app = {
             for (const ans of this.answers) {
                 if (ans.isCorrect && !ans.wasIncorrect) correctFirst++;
             }
-            this.ticketStats[ticketId] = {
-                total: this.answers.length,
-                correct: correctFirst
-            };
+            // Обновляем статистику для этого билета
+            if (!this.ticketStats[ticketId]) {
+                this.ticketStats[ticketId] = { total: this.answers.length, correct: 0 };
+            }
+            this.ticketStats[ticketId].correct = correctFirst;
+            this.ticketStats[ticketId].total = this.answers.length;
             this.saveTicketStats();
+            // Отмечаем билет как пройденный
             this.completedTickets.add(ticketId);
             this.saveCompletedTickets();
+            // Обновляем кнопки билетов
             this.renderTicketButtons();
         }
         this.showResults();
@@ -1922,11 +1938,10 @@ const app = {
         return arr;
     },
 
-    // ====== ОБНОВЛЁННОЕ СОХРАНЕНИЕ С ОБРАБОТКОЙ ОШИБОК ======
     saveProgress() {
         if (this.currentQuestions.length === 0 || this.isResuming) return;
         if (!this.isLocalStorageAvailable()) {
-            console.warn('localStorage не доступен (возможно, приватный режим Safari)');
+            console.warn('localStorage недоступен');
             this.updateProgressStatus('error');
             return;
         }
@@ -1966,6 +1981,10 @@ const app = {
             localStorage.removeItem('ticketStats');
             localStorage.removeItem('completedTickets');
             this.ticketStats = {};
+            // Инициализируем пустую статистику для всех билетов
+            for (let i = 1; i <= 11; i++) {
+                this.ticketStats[i] = { total: 10, correct: 0 };
+            }
             this.completedTickets = new Set();
             this.renderTicketButtons();
             this.updateProgressStatus('cleared');
