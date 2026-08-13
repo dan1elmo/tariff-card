@@ -177,7 +177,7 @@ function isLocalStorageAvailable() {
 }
 
 // ==================================================================
-// ПОЛНЫЙ МАССИВ ИЗ 110 ВОПРОСОВ (с переводами и подсказками)
+// ПОЛНЫЙ МАССИВ ИЗ 110 ВОПРОСОВ (ОРИГИНАЛ С САЙТА ANCE)
 // ==================================================================
 const questionsWithRu = [
     // Вопрос 1
@@ -246,7 +246,7 @@ const questionsWithRu = [
         hint: "Art. 99 alin. (1) din Constituție: membrii Guvernului depun jurământul în fața Parlamentului.",
         hint_ru: "Ст. 99 ч. (1) Конституции: члены Правительства приносят присягу перед Парламентом."
     },
-    // Вопрос 7 (исправлен – добавлен вариант d)
+    // Вопрос 7
     {
         id: 7,
         text: "Conform Constituției Republicii Moldova, cetățenii au dreptul să se adreseze autorităților publice prin petiții:",
@@ -1393,7 +1393,7 @@ const questionsWithRu = [
 ];
 
 // ==================================================================
-// ЛОГИКА ПРИЛОЖЕНИЯ (с исправленным отображением прогресса билетов)
+// ЛОГИКА ПРИЛОЖЕНИЯ (с исправленным перемешиванием и отображением прогресса)
 // ==================================================================
 const app = {
     mode: 'tickets',
@@ -1566,13 +1566,12 @@ const app = {
         this.updateProgressStatus();
     },
 
-    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startTicket =====
+    // ===== ИСПРАВЛЕННЫЕ ФУНКЦИИ С СИНХРОННЫМ ПЕРЕМЕШИВАНИЕМ ОТВЕТОВ И ПЕРЕВОДОВ =====
     startTicket(index) {
         this.currentTicketIndex = index;
         const ticket = this.tickets[index];
         const shuffledQs = this.shuffleArray([...ticket.questions]);
         this.currentQuestions = shuffledQs;
-        // Перемешиваем варианты вместе с переводами
         this.shuffledOptions = shuffledQs.map(q => {
             const pairs = q.options.map((opt, i) => ({
                 opt: opt,
@@ -1598,7 +1597,6 @@ const app = {
         this.saveProgress();
     },
 
-    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startMarathon =====
     startMarathon() {
         const shuffledQs = this.shuffleArray([...questionsWithRu]);
         this.currentQuestions = shuffledQs;
@@ -1627,7 +1625,6 @@ const app = {
         this.saveProgress();
     },
 
-    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startRandom =====
     startRandom() {
         const shuffledAll = this.shuffleArray([...questionsWithRu]);
         const selected = shuffledAll.slice(0, 10);
