@@ -1076,7 +1076,7 @@ const questionsWithRu = [
         id: 82,
         text: "Potrivit Constituției Republicii Moldova, perchezițiile și cercetările la fața locului pot fi ordonate și efectuate numai:",
         options: ["a) în cazul săvârșirii unor infracțiuni;", "b) în condițiile legii;", "c) în baza unei hotărâri judecătorești."],
-        correct: 3,
+        correct: 2,
         text_ru: "Согласно Конституции Республики Молдова, обыски и осмотры на месте могут быть санкционированы и проведены только:",
         options_ru: ["a) в случае совершения преступлений;", "b) в условиях, установленных законом;", "c) на основании судебного решения."],
         hint: "Art. 25 alin. (4) din Constituție: perchezițiile se efectuează numai în baza unei hotărâri judecătorești.",
@@ -1449,14 +1449,12 @@ const app = {
             const saved = localStorage.getItem('ticketStats');
             if (saved) {
                 this.ticketStats = JSON.parse(saved);
-                // Убедимся, что для всех билетов есть запись
                 for (let i = 1; i <= 11; i++) {
                     if (!this.ticketStats[i]) {
                         this.ticketStats[i] = { total: 10, correct: 0 };
                     }
                 }
             } else {
-                // Инициализируем пустую статистику для всех билетов
                 this.ticketStats = {};
                 for (let i = 1; i <= 11; i++) {
                     this.ticketStats[i] = { total: 10, correct: 0 };
@@ -1568,22 +1566,30 @@ const app = {
         this.updateProgressStatus();
     },
 
+    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startTicket =====
     startTicket(index) {
         this.currentTicketIndex = index;
         const ticket = this.tickets[index];
         const shuffledQs = this.shuffleArray([...ticket.questions]);
         this.currentQuestions = shuffledQs;
+        // Перемешиваем варианты вместе с переводами
         this.shuffledOptions = shuffledQs.map(q => {
-            const opts = this.shuffleArray([...q.options]);
+            const pairs = q.options.map((opt, i) => ({
+                opt: opt,
+                ru: (q.options_ru && q.options_ru[i]) ? q.options_ru[i] : ''
+            }));
+            const shuffledPairs = this.shuffleArray([...pairs]);
+            const opts = shuffledPairs.map(p => p.opt);
+            const ruOpts = shuffledPairs.map(p => p.ru);
             const correctText = q.options[q.correct];
             const newCorrect = opts.indexOf(correctText);
-            return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
+            return { options: opts, correct: newCorrect, options_ru: ruOpts };
         });
-        this.answers = shuffledQs.map(() => ({ 
-            selected: -1, 
-            isCorrect: false, 
-            wasIncorrect: false, 
-            showHint: false, 
+        this.answers = shuffledQs.map(() => ({
+            selected: -1,
+            isCorrect: false,
+            wasIncorrect: false,
+            showHint: false,
             firstWrongSelected: -1,
             incorrectIndices: []
         }));
@@ -1592,20 +1598,27 @@ const app = {
         this.saveProgress();
     },
 
+    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startMarathon =====
     startMarathon() {
         const shuffledQs = this.shuffleArray([...questionsWithRu]);
         this.currentQuestions = shuffledQs;
         this.shuffledOptions = shuffledQs.map(q => {
-            const opts = this.shuffleArray([...q.options]);
+            const pairs = q.options.map((opt, i) => ({
+                opt: opt,
+                ru: (q.options_ru && q.options_ru[i]) ? q.options_ru[i] : ''
+            }));
+            const shuffledPairs = this.shuffleArray([...pairs]);
+            const opts = shuffledPairs.map(p => p.opt);
+            const ruOpts = shuffledPairs.map(p => p.ru);
             const correctText = q.options[q.correct];
             const newCorrect = opts.indexOf(correctText);
-            return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
+            return { options: opts, correct: newCorrect, options_ru: ruOpts };
         });
-        this.answers = shuffledQs.map(() => ({ 
-            selected: -1, 
-            isCorrect: false, 
-            wasIncorrect: false, 
-            showHint: false, 
+        this.answers = shuffledQs.map(() => ({
+            selected: -1,
+            isCorrect: false,
+            wasIncorrect: false,
+            showHint: false,
             firstWrongSelected: -1,
             incorrectIndices: []
         }));
@@ -1614,21 +1627,28 @@ const app = {
         this.saveProgress();
     },
 
+    // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ startRandom =====
     startRandom() {
         const shuffledAll = this.shuffleArray([...questionsWithRu]);
         const selected = shuffledAll.slice(0, 10);
         this.currentQuestions = selected;
         this.shuffledOptions = selected.map(q => {
-            const opts = this.shuffleArray([...q.options]);
+            const pairs = q.options.map((opt, i) => ({
+                opt: opt,
+                ru: (q.options_ru && q.options_ru[i]) ? q.options_ru[i] : ''
+            }));
+            const shuffledPairs = this.shuffleArray([...pairs]);
+            const opts = shuffledPairs.map(p => p.opt);
+            const ruOpts = shuffledPairs.map(p => p.ru);
             const correctText = q.options[q.correct];
             const newCorrect = opts.indexOf(correctText);
-            return { options: opts, correct: newCorrect, options_ru: q.options_ru ? this.shuffleArray([...q.options_ru]) : [] };
+            return { options: opts, correct: newCorrect, options_ru: ruOpts };
         });
-        this.answers = selected.map(() => ({ 
-            selected: -1, 
-            isCorrect: false, 
-            wasIncorrect: false, 
-            showHint: false, 
+        this.answers = selected.map(() => ({
+            selected: -1,
+            isCorrect: false,
+            wasIncorrect: false,
+            showHint: false,
             firstWrongSelected: -1,
             incorrectIndices: []
         }));
@@ -1804,17 +1824,14 @@ const app = {
             for (const ans of this.answers) {
                 if (ans.isCorrect && !ans.wasIncorrect) correctFirst++;
             }
-            // Обновляем статистику для этого билета
             if (!this.ticketStats[ticketId]) {
                 this.ticketStats[ticketId] = { total: this.answers.length, correct: 0 };
             }
             this.ticketStats[ticketId].correct = correctFirst;
             this.ticketStats[ticketId].total = this.answers.length;
             this.saveTicketStats();
-            // Отмечаем билет как пройденный
             this.completedTickets.add(ticketId);
             this.saveCompletedTickets();
-            // Обновляем кнопки билетов
             this.renderTicketButtons();
         }
         this.showResults();
@@ -1981,7 +1998,6 @@ const app = {
             localStorage.removeItem('ticketStats');
             localStorage.removeItem('completedTickets');
             this.ticketStats = {};
-            // Инициализируем пустую статистику для всех билетов
             for (let i = 1; i <= 11; i++) {
                 this.ticketStats[i] = { total: 10, correct: 0 };
             }
